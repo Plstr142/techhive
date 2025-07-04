@@ -3,6 +3,7 @@ const express = require("express");
 const morgan = require("morgan");
 const app = express();
 const { readdirSync } = require("fs");
+const cors = require("cors");
 // const authRouter = require("./routes/auth.js");
 // const categoryRouter = require("./routes/category.js");
 
@@ -11,6 +12,7 @@ app.use(morgan("combined"));
 
 // parse body json
 app.use(express.json());
+app.use(cors());
 
 // readdirSync("./routes").map((c) => console.log(c));
 readdirSync("./routes").map((c) => app.use("/api", require("./routes/" + c)));
