@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/register", (req, res) => {
-  res.send("Hello get auth Phongs4thon");
+router.get("/category", (req, res) => {
+  res.send("Hello get category Phongs4thon");
 });
 
 module.exports = router;
