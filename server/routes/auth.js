@@ -5,7 +5,6 @@ const { register, login, currentUser } = require("../controllers/auth");
 
 router.post("/register", register);
 router.post("/login", login);
-
 // The difference is that middleware comes in between.
 router.post("/current-user", currentUser);
 router.post("/current-admin", currentUser);

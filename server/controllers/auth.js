@@ -1,6 +1,19 @@
 exports.register = async (req, res) => {
   try {
-    //code
+    // destructuring
+    const { email, password } = req.body;
+
+    // Step 1 Validate body
+    if (!email) {
+      return res.status(400).json({ message: "Email is required!" });
+    }
+    if (!password) {
+      return res.status(400).json({ message: "Password is required!" });
+    }
+
+    // Step 2 Check Email in DB already ?
+
+    console.log(email, password);
     res.send("Hello Register In Controller");
   } catch (error) {
     console.log(error);
