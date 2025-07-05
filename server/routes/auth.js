@@ -1,9 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
-const { register, login } = require("../controllers/auth");
+const { register, login, currentUser } = require("../controllers/auth");
 
 router.post("/register", register);
 router.post("/login", login);
+
+// The difference is that middleware comes in between.
+router.post("/current-user", currentUser);
+router.post("/current-admin", currentUser);
 
 module.exports = router;

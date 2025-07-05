@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const { create } = require("../controllers/category");
 
-router.get("/category", (req, res) => {
-  res.send("Hello get category Phongs4thon");
-});
+router.post("/category", create);
+router.get("/category");
+router.delete("/category/:id");
 
 module.exports = router;
