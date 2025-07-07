@@ -29,15 +29,18 @@ model User {
 }
 
 model Product {
-  id          Int              @id @default(autoincrement())
-  title       String
-  description String
-  price       Float
-  sold        Int              @default(0)
-  quantity    Int
-  orderItems  ProductOnOrder[]
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
+  id              Int              @id @default(autoincrement())
+  title           String
+  description     String
+  price           Float
+  sold            Int              @default(0)
+  quantity        Int
+  orderItems      ProductOnOrder[]
+  cartItems       ProductOnCart[]
+  images          Image[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  productOnCartId Int
 }
 
 model Order {
@@ -57,6 +60,8 @@ model ProductOnOrder {
   productId Int
   order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   orderId   Int
+  count     Int
+  price     Float
 }
 
 model Category {
@@ -67,12 +72,24 @@ model Category {
 }
 
 model Cart {
-  id          Int      @id @default(autoincrement())
-  cartTotal   Float
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  orderedBy   User     @relation(fields: [orderedById], references: [id])
-  orderedById Int
+  id              Int             @id @default(autoincrement())
+  products        ProductOnCart[]
+  cartTotal       Float
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  orderedBy       User            @relation(fields: [orderedById], references: [id])
+  orderedById     Int
+  productOnCartId Int
+}
+
+model ProductOnCart {
+  id        Int     @id @default(autoincrement())
+  cart      Cart    @relation(fields: [cartId], references: [id])
+  cartId    Int
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId Int
+  count     Int
+  price     Float
 }
 
 model Image {
@@ -83,4 +100,6 @@ model Image {
   secure_url String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId  Int
 }
