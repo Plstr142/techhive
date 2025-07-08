@@ -5,7 +5,7 @@ exports.create = async (req, res) => {
     // code
     const { title, description, price, quantity, categoryId, images } =
       req.body;
-    // console.log(title, description, price, quantity, images)
+    // console.log(title, description, price, quantity, images);
     const product = await prisma.product.create({
       data: {
         title: title,
@@ -32,7 +32,14 @@ exports.create = async (req, res) => {
 
 exports.list = async (req, res) => {
   try {
-    res.send("Hello list Product");
+    const { count } = req.params;
+    // findMany = get all but limit is not all
+    const products = await prisma.product.findMany({
+      // filtering limit product
+      take: parseInt(count),
+    });
+
+    res.send(products);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Server Error" });
