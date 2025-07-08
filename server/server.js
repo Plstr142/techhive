@@ -13,13 +13,12 @@ app.use(morgan("combined"));
 // parse body json
 app.use(express.json());
 app.use(cors());
-
+// app.use("/api", authRouter);
+// app.use("/api", categoryRouter);
 // readdirSync("./routes").map((c) => console.log(c));
 readdirSync("./routes").map((c) => app.use("/api", require("./routes/" + c)));
 
 // Step 3 Router
-// app.use("/api", authRouter);
-// app.use("/api", categoryRouter);
 
 // Step 2 start server
 app.listen(5000, () => console.log("Server is running on port 5000"));
