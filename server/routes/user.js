@@ -1,7 +1,17 @@
 const express = require("express");
 const router = express.Router();
-const { listUsers } = require("../controllers/user");
-const { authCheck } = require("../middleware/authCheck");
+const { authCheck, adminCheck } = require("../middlewares/authCheck");
+const {
+  listUsers,
+  changeStatus,
+  changeRole,
+  userCart,
+  getUserCart,
+  emptyCart,
+  saveAddress,
+  saveOrder,
+  getOrder,
+} = require("../controllers/user");
 
 router.get("/users", authCheck, listUsers);
 router.post("/change-status");
