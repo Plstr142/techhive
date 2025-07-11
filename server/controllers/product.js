@@ -5,6 +5,7 @@ exports.create = async (req, res) => {
     // code
     const { title, description, price, quantity, categoryId, images } =
       req.body;
+    const { productOnCartId } = req.body;
     // console.log(title, description, price, quantity, images);
     const product = await prisma.product.create({
       data: {
@@ -13,6 +14,7 @@ exports.create = async (req, res) => {
         price: parseFloat(price),
         quantity: parseInt(quantity),
         categoryId: parseInt(categoryId),
+        productOnCartId: productOnCartId ? Number(productOnCartId) : 0,
         images: {
           create: images.map((item) => ({
             asset_id: item.asset_id,
@@ -60,10 +62,9 @@ exports.list = async (req, res) => {
       // filtering limit product
       take: parseInt(count),
       orderBy: { createdAt: "desc" },
-      // join table
       include: {
         category: true,
-        images: true,
+        image: true,
       },
     });
 
@@ -78,9 +79,7 @@ exports.update = async (req, res) => {
   try {
     const { title, description, price, quantity, categoryId, images } =
       req.body;
-    // console.log(title, description, price, quantity, images);
 
-    // clear images
     await prisma.image.deleteMany({
       where: {
         productId: Number(req.params.id),
@@ -118,8 +117,6 @@ exports.update = async (req, res) => {
 exports.remove = async (req, res) => {
   try {
     const { id } = req.params;
-
-    // code
 
     await prisma.product.delete({
       where: {
@@ -188,7 +185,7 @@ const handlePrice = async (req, res, priceRange) => {
     res.send(products);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json("Search Error");
   }
 };
 
@@ -220,14 +217,17 @@ exports.searchFilters = async (req, res) => {
       console.log("query-->", query);
       await handleQuery(req, res, query);
     }
+
     if (category) {
-      console.log("catergory-->", category);
+      console.log("category-->", category);
       await handleCategory(req, res, category);
     }
+
     if (price) {
       console.log("price-->", price);
       await handlePrice(req, res, price);
     }
+
     // res.send("Hello searchFilters Product");
   } catch (error) {
     console.log(error);
