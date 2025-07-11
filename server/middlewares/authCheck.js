@@ -36,3 +36,22 @@ exports.authCheck = async (req, res, next) => {
     res.status(500).json({ message: "Token Invalid" });
   }
 };
+
+exports.adminCheck = async (req, res, next) => {
+  try {
+    const { email } = req.user;
+    const adminUser = await prisma.user.findFirst({
+      where: {
+        email: email,
+      },
+    });
+    if (!adminUser || adminUser.role != "admin") {
+      return res.status(403).json({ message: "Access Denied: Admin Only!" });
+    }
+    // console.log("admin check:", adminUser);
+    next();
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Admin access denied!" });
+  }
+};
