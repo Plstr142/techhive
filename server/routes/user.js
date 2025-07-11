@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 // const { listUsers } = require("../controllers/user");
-const { authCheck } = require("../middlewares/authCheck");
+const { authCheck, adminCheck } = require("../middlewares/authCheck");
 const { listUsers } = require("../controllers/user");
 
-router.get("/users", authCheck, listUsers);
+router.get("/users", authCheck, adminCheck, listUsers);
 
 // router.post("/change-status");
 // router.post("/change-role");

@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const prisma = require("../config/prisma");
 
 exports.authCheck = async (req, res, next) => {
   try {
@@ -12,10 +13,23 @@ exports.authCheck = async (req, res, next) => {
     const token = headerToken.split(" ")[1];
 
     // jwt , options env secret
-    const decode = jwt.verify(token, process.env.SECRET, { complete: true });
+    const decode = jwt.verify(token, process.env.SECRET);
+    // Declare a key to receive the value and add the value to the user.
+    req.user = decode;
 
-    console.log(decode);
-    console.log("Hello middleware");
+    const user = await prisma.user.findFirst({
+      where: {
+        email: req.user.email,
+      },
+    });
+
+    // check user enabled
+    if (!user.enabled) {
+      return res.status(400).json({ message: "This account cannot access" });
+    }
+    // console.log(user);
+    // console.log("Hello middleware");
+
     next();
   } catch (error) {
     console.log(error);
