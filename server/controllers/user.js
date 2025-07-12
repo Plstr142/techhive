@@ -41,6 +41,13 @@ exports.changeStatus = async (req, res) => {
 
 exports.changeRole = async (req, res) => {
   try {
+    const { id, role } = req.body;
+
+    const user = await prisma.user.update({
+      where: { id: Number(id) },
+      data: { role: role },
+    });
+
     res.send("Hello changeRole");
   } catch (error) {
     console.log(error);
@@ -50,7 +57,59 @@ exports.changeRole = async (req, res) => {
 
 exports.userCart = async (req, res) => {
   try {
-    res.send("Hello userCart");
+    const { cart } = req.body;
+    console.log(cart);
+    console.log(req.user.id);
+
+    const user = await prisma.user.findFirst({
+      where: {
+        id: Number(req.user.id),
+      },
+    });
+    // console.log(user);
+    // Deleted old Cart item
+    await prisma.productOnCart.deleteMany({
+      where: {
+        cart: {
+          orderedById: user.id,
+        },
+      },
+    });
+
+    // Deleted old Cart
+    await prisma.cart.deleteMany({
+      where: {
+        orderedById: user.id,
+      },
+    });
+
+    // prepare obj for map product
+    let products = cart.map((item) => ({
+      productId: item.id,
+      count: item.count,
+      price: item.price,
+    }));
+
+    // finding summary --> sum = (totoal price) previous value, item = current value
+    let cartTotal = products.reduce(
+      (sum, item) => sum + item.price * item.count,
+      0
+    );
+
+    // New cart
+    const newCart = await prisma.cart.create({
+      data: {
+        products: {
+          create: products,
+        },
+        cartTotal: cartTotal,
+        orderedById: user.id,
+      },
+    });
+
+    console.log(cartTotal);
+
+    res.send("Add Cart ok");
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Server Error" });
