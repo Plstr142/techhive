@@ -64,7 +64,7 @@ exports.list = async (req, res) => {
       orderBy: { createdAt: "desc" },
       include: {
         category: true,
-        image: true,
+        images: true,
       },
     });
 
