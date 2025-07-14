@@ -193,6 +193,78 @@ exports.saveAddress = async (req, res) => {
 
 exports.saveOrder = async (req, res) => {
   try {
+    // Step 1 Get User Cart
+    const userCart = await prisma.cart.findFirst({
+      where: {
+        orderedById: Number(req.user.id),
+      },
+      include: { products: true },
+    });
+
+    // Check Cart Empty
+    if (!userCart || userCart.products.length === 0) {
+      return res.status(400).json({ ok: false, message: "Cart is Empty" });
+    }
+
+    // Check quantity
+    for (const item of userCart.products) {
+      // console.log(item);
+      const product = await prisma.product.findUnique({
+        where: {
+          id: item.productId,
+        },
+        select: {
+          quantity: true,
+          title: true,
+        },
+      });
+
+      // console.log(item);
+      // console.log(product);
+      if (!product || item.count > product.quantity) {
+        return res.status(400).json({
+          ok: false,
+          message: `Sorry, the product ${
+            product?.title || "product"
+          } not enough`,
+        });
+      }
+    }
+
+    // Create a new Order
+    const order = await prisma.order.create({
+      data: {
+        products: {
+          create: userCart.products.map((item) => ({
+            productId: item.productId,
+            count: item.count,
+            price: item.price,
+          })),
+        },
+        orderedBy: {
+          connect: { id: req.user.id },
+        },
+        cartTotal: userCart.cartTotal,
+      },
+    });
+
+    // Update Product
+    const update = userCart.products.map((item) => ({
+      where: {
+        id: item.productId,
+      },
+      data: {
+        quantity: {
+          decrement: item.count,
+        },
+        sold: {
+          increment: item.count,
+        },
+      },
+    }));
+
+    console.log(update);
+
     res.send("Hello saveOrder");
   } catch (error) {
     console.log(error);
