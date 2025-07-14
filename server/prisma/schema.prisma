@@ -29,20 +29,20 @@ model User {
 }
 
 model Product {
-  id              Int              @id @default(autoincrement())
-  title           String
-  description     String
-  price           Float
-  sold            Int              @default(0)
-  quantity        Int
-  orderItems      ProductOnOrder[]
-  cartItems       ProductOnCart[]
-  images          Image[]
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
-  productOnCartId Int
-  category        Category?        @relation(fields: [categoryId], references: [id])
-  categoryId      Int?
+  id          Int              @id @default(autoincrement())
+  title       String
+  description String
+  price       Float
+  sold        Int              @default(0)
+  quantity    Int
+  orderItems  ProductOnOrder[]
+  cartItems   ProductOnCart[]
+  images      Image[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  // productOnCartId Int
+  category    Category?        @relation(fields: [categoryId], references: [id])
+  categoryId  Int?
 }
 
 model Order {
@@ -75,21 +75,21 @@ model Category {
 }
 
 model Cart {
-  id              Int             @id @default(autoincrement())
-  products        ProductOnCart[]
-  cartTotal       Float
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
-  orderedBy       User            @relation(fields: [orderedById], references: [id])
-  orderedById     Int
-  productOnCartId Int
+  id          Int             @id @default(autoincrement())
+  products    ProductOnCart[]
+  cartTotal   Float
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  orderedBy   User            @relation(fields: [orderedById], references: [id])
+  orderedById Int
+  // productOnCartId Int
 }
 
 model ProductOnCart {
   id        Int     @id @default(autoincrement())
-  cart      Cart    @relation(fields: [cartId], references: [id])
+  cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
   cartId    Int
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id])
   productId Int
   count     Int
   price     Float
