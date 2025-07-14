@@ -144,7 +144,28 @@ exports.getUserCart = async (req, res) => {
 
 exports.emptyCart = async (req, res) => {
   try {
-    res.send("Hello emptyCart");
+    const cart = await prisma.cart.findFirst({
+      where: {
+        orderedById: Number(req.user.id),
+      },
+    });
+    if (!cart) {
+      return res.status(400).json({ message: "No cart" });
+    }
+    await prisma.productOnCart.deleteMany({
+      where: {
+        cartId: cart.id,
+      },
+    });
+    const result = await prisma.cart.deleteMany({
+      where: { orderedById: Number(req.user.id) },
+    });
+
+    console.log(cart);
+    res.json({
+      message: "Cart Empty Successfully!",
+      deletedCount: result.count,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Server Error" });
@@ -153,7 +174,17 @@ exports.emptyCart = async (req, res) => {
 
 exports.saveAddress = async (req, res) => {
   try {
-    res.send("Hello saveAddress");
+    const { address } = req.body;
+    console.log(address);
+    const addressUser = await prisma.user.update({
+      where: {
+        id: Number(req.user.id),
+      },
+      data: {
+        address: address,
+      },
+    });
+    res.json({ ok: true, message: "Address update sucessfully!" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Server Error" });
