@@ -1,8 +1,13 @@
 import React, { useState } from "react"
-import axios from "axios"
+// import axios from "axios"
 import { toast } from 'react-toastify';
+import usetechhiveStore from "../../store/techhive-store";
 
 const Login = () => {
+    const actionLogin = usetechhiveStore((state) => state.actionLogin);
+    const user = usetechhiveStore((state) => state.user)
+
+    console.log("user form zustand", user)
     const [form, setForm] = useState({
         email: "",
         password: "",
@@ -21,18 +26,16 @@ const Login = () => {
     const handleSubmit = async (e) => {
         // don't refresh
         e.preventDefault()
-        // Check the form password and confirm the password before sending it to the server 
-        if (form.password !== form.confirmPassword) {
-            return alert("Confirm password isn't match")
-        }
 
-        console.log(form)
         // Send to backend
         try {
-            const res = await axios.post("/api/login", form)
+            const res = await actionLogin(form);
 
-            console.log(res.data)
-            toast.success(res.data)
+            // console.log(res.data)
+            // toast.success(res.data)
+
+            // console.log(res.data)
+            toast.success("Welcome Back")
         } catch (error) {
             const errorMsg = error.response?.data?.message
             toast.error(errorMsg)
@@ -42,7 +45,7 @@ const Login = () => {
 
     return (
         <div>
-            Sign up account
+            Log in
             <form onSubmit={handleSubmit}>
                 Email:
                 <input className="border rounded-sm"
@@ -55,14 +58,8 @@ const Login = () => {
                     type="text"
                     onChange={handleOnChange}
                 />
-                Confirm Password:
-                <input className="border rounded-sm"
-                    onChange={handleOnChange}
-                    name="confirmPassword"
-                    type="text"
-                />
                 <button className="bg-blue-500 rounded-sm">
-                    Register
+                    Login
                 </button>
             </form>
         </div>
