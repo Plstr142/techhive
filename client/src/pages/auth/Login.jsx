@@ -2,8 +2,10 @@ import React, { useState } from "react"
 // import axios from "axios"
 import { toast } from 'react-toastify';
 import usetechhiveStore from "../../store/techhive-store";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+    const navigate = useNavigate();
     const actionLogin = usetechhiveStore((state) => state.actionLogin);
     const user = usetechhiveStore((state) => state.user)
 
@@ -30,8 +32,10 @@ const Login = () => {
         // Send to backend
         try {
             const res = await actionLogin(form);
-
-            // console.log(res.data)
+            // console.log("res", res)
+            const role = res.data.payload.role;
+            console.log("role", role)
+            roleRedirect(role)
             // toast.success(res.data)
 
             // console.log(res.data)
@@ -40,6 +44,14 @@ const Login = () => {
             const errorMsg = error.response?.data?.message
             toast.error(errorMsg)
             console.log(error)
+        }
+    }
+
+    const roleRedirect = (role) => {
+        if (role === "admin") {
+            navigate("/admin")
+        } else {
+            navigate("/user")
         }
     }
 
