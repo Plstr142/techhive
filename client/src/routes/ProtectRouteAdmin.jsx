@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react"
 import usetechhiveStore from "../store/techhive-store"
-import { currentUser } from "../api/auth";
+import { currentAdmin } from "../api/auth";
 import LoadingToRedirect from "./LoadingToRedirect"
 
-const ProtectRouteUser = ({ element }) => {
+const ProtectRouteAdmin = ({ element }) => {
 
     const [ok, setOk] = useState(false)
     const user = usetechhiveStore((state) => state.user);
@@ -13,7 +13,7 @@ const ProtectRouteUser = ({ element }) => {
     useEffect(() => {
         if (user && token) {
             // send to backend
-            currentUser(token)
+            currentAdmin(token)
                 .then((res) => {
                     console.log(res);
                     setOk(true);
@@ -27,4 +27,4 @@ const ProtectRouteUser = ({ element }) => {
 
     return ok ? element : <LoadingToRedirect />
 }
-export default ProtectRouteUser
+export default ProtectRouteAdmin

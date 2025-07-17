@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Navigate } from "react-router-dom"
 
-const LoadingtoRedirect = () => {
+const LoadingToRedirect = () => {
     const [count, setCount] = useState(3);
     const [redirect, setRedirect] = useState(false);
 
@@ -27,4 +27,4 @@ const LoadingtoRedirect = () => {
         <div>No Permission, Redirect in {count}</div>
     )
 }
-export default LoadingtoRedirect
+export default LoadingToRedirect
