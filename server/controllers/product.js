@@ -5,7 +5,7 @@ exports.create = async (req, res) => {
     // code
     const { title, description, price, quantity, categoryId, images } =
       req.body;
-    const { productOnCartId } = req.body;
+    // const { productOnCartId } = req.body;
     // console.log(title, description, price, quantity, images);
     const product = await prisma.product.create({
       data: {
@@ -14,7 +14,7 @@ exports.create = async (req, res) => {
         price: parseFloat(price),
         quantity: parseInt(quantity),
         categoryId: parseInt(categoryId),
-        productOnCartId: productOnCartId ? Number(productOnCartId) : 0,
+        // productOnCartId: productOnCartId ? Number(productOnCartId) : 0,
         images: {
           create: images.map((item) => ({
             asset_id: item.asset_id,

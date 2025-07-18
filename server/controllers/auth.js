@@ -77,7 +77,7 @@ exports.login = async (req, res) => {
       payload,
       process.env.SECRET,
       // expires in ? day/hour/minutes
-      { expiresIn: "7d" },
+      { expiresIn: "120d" },
       (error, token) => {
         if (error) {
           return res.status(500).json({ message: "Server Error" });

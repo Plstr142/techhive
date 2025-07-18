@@ -1,26 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { createCategory, listCategory, removeCategory } from "../../api/Category"
+import { createCategory, removeCategory } from "../../api/Category"
 import usetechhiveStore from "../../store/techhive-store";
 import { toast } from 'react-toastify';
 
 const FormCategory = () => {
     const token = usetechhiveStore((state) => state.token);
     const [name, setName] = useState("");
-    const [categories, setCategories] = useState([]);
+    // const [categories, setCategories] = useState([]);
+    const categories = usetechhiveStore((state) => state.categories);
+    const getCategory = usetechhiveStore((state) => state.getCategory);
 
     useEffect(() => {
         getCategory(token)
     }, [])
-
-    // category data in getCategory
-    const getCategory = async (token) => {
-        try {
-            const res = await listCategory(token)
-            setCategories(res.data);
-        } catch (error) {
-            console.log(error)
-        }
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
