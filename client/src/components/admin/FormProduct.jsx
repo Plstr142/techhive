@@ -27,7 +27,7 @@ const FormProduct = () => {
 
     useEffect(() => {
         getCategory(token);
-        getProduct(token, 20);
+        getProduct(token, 21);
     }, [])
 
 
@@ -36,7 +36,7 @@ const FormProduct = () => {
         setForm({ ...form, [e.target.name]: e.target.value })
     }
 
-    const handleSubmit = async (e) => {
+    const handleOnSubmit = async (e) => {
         e.preventDefault()
         try {
             const res = await createProduct(token, form)
@@ -49,7 +49,7 @@ const FormProduct = () => {
 
     return (
         <div className="container mx-auto p-4 bg-white rounded-sm">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleOnSubmit}>
                 <h1>Add product data</h1>
                 <input
                     className="border rounded-sm"
