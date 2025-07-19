@@ -64,7 +64,7 @@ const FormProduct = () => {
                         categories.map((item, index) =>
                             <option key={index} value={item.id}>{item.name}</option>
                         )
-                    }s
+                    }
                 </select>
                 <hr />
                 <button className="bg-blue-500 rounded-sm p-1">Add product</button>
