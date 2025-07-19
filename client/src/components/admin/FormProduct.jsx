@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import usetechhiveStore from "../../store/techhive-store"
 import { createProduct } from "../../api/product";
 import { toast } from 'react-toastify';
+import Uploadfile from "./Uploadfile";
 
 // obj initialstate
 const initialState = {
@@ -21,13 +22,13 @@ const FormProduct = () => {
     // get list product from state to show on table 
     const getProduct = usetechhiveStore((state) => state.getProduct);
     const products = usetechhiveStore((state) => state.products);
-    console.log(products)
+    // console.log(products)
 
     const [form, setForm] = useState(initialState);
 
     useEffect(() => {
         getCategory(token);
-        getProduct(token, 21);
+        getProduct(token, 27);
     }, [])
 
 
@@ -96,6 +97,10 @@ const FormProduct = () => {
                     }
                 </select>
                 <hr />
+
+                {/* Upload file */}
+                <Uploadfile form={form} setForm={setForm} />
+
                 <button className="bg-blue-500 rounded-sm p-1">Add product</button>
 
                 <hr />
@@ -116,9 +121,9 @@ const FormProduct = () => {
                     <tbody>
                         {
                             products.map((item, index) => {
-                                console.log(item)
+                                // console.log(item)
                                 return (
-                                    <tr>
+                                    <tr key={index}>
                                         <th scope="row">{index + 1}</th>
                                         <td>{item.title}</td>
                                         <td>{item.description}</td>
