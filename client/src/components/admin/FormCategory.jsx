@@ -7,6 +7,8 @@ const FormCategory = () => {
     const token = usetechhiveStore((state) => state.token);
     const [name, setName] = useState("");
     // const [categories, setCategories] = useState([]);
+
+    // Global state
     const categories = usetechhiveStore((state) => state.categories);
     const getCategory = usetechhiveStore((state) => state.getCategory);
 
