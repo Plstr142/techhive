@@ -8,6 +8,8 @@ const {
   read,
   remove,
   listby,
+  images,
+  removeImages,
   searchFilters,
 } = require("../controllers/product.js");
 const { authCheck, adminCheck } = require("../middlewares/authCheck.js");

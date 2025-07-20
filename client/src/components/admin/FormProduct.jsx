@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import usetechhiveStore from "../../store/techhive-store"
 import { createProduct } from "../../api/product";
 import { toast } from 'react-toastify';
-import Uploadfile from "./Uploadfile";
+import Uploadfile from "./UploadFile";
 
 // obj initialstate
 const initialState = {

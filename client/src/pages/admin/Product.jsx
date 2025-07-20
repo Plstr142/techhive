@@ -2,9 +2,7 @@ import FormProduct from "../../components/admin/FormProduct"
 
 const Product = () => {
     return (
-        <div>
-            <FormProduct />
-        </div>
+        <div><FormProduct /></div>
     )
 }
 export default Product
