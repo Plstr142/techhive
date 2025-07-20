@@ -23,6 +23,6 @@ router.post("/productby", listby);
 router.post("/search/filters", searchFilters);
 
 router.post("/images", authCheck, adminCheck, createImages);
-router.delete("/removeimages", authCheck, adminCheck, removeImage);
+router.post("/removeimages", authCheck, adminCheck, removeImage);
 
 module.exports = router;

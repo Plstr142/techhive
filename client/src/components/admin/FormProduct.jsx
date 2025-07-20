@@ -11,6 +11,7 @@ const initialState = {
     "price": 500000,
     "quantity": 1000,
     "categoryId": "",
+    // filtered data on localstorage
     "images": []
 }
 

@@ -26,3 +26,14 @@ export const uploadFiles = async (token, form) => {
         }
     })
 }
+
+export const removeFiles = async (token, public_id) => {
+    // console.log("form api frontend", form) --> output as form api frontend with base64
+    return await axios.post("/api/removeimages", {
+        public_id
+    }, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    })
+}

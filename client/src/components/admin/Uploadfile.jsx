@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import Resize from "react-image-file-resizer";
-import { uploadFiles } from "../../api/product";
+import { removeFiles, uploadFiles } from "../../api/product";
 import usetechhiveStore from "../../store/techhive-store";
 
 const Uploadfile = (props) => {
     const { form, setForm } = props;
     const token = usetechhiveStore((state) => state.token)
     const [isLoading, setIsLoading] = useState(false);
+
     const handleOnChange = (e) => {
         const files = e.target.files;
         if (files) {
@@ -56,16 +57,59 @@ const Uploadfile = (props) => {
         }
         console.log(e.target.files)
     };
+    console.log(form)
+
+    const handleDelete = (public_id) => {
+        // console.log(public_id)
+        const images = form.images;
+        removeFiles(token, public_id)
+            .then((res) => {
+                const filterImages = images.filter((item) => {
+                    console.log(item)
+                    // Return only the undeleted public_id
+                    return item.public_id !== public_id
+                });
+                console.log("filterImages", filterImages)
+                // send to image []
+                setForm({
+                    ...form,
+                    images: filterImages
+                })
+
+                toast.error(res.data)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
 
     return (
-        <div>
-            <input
-                onChange={handleOnChange}
-                type="file"
-                name="images"
-                multiple
-            />
-        </div>
+        <div className="my-4">
+
+            <div className="flex mx-4 gap-4 my-4">
+                {/* Image */}
+                {
+                    form.images.map((item, index) =>
+                        <div className="relative" key={index}>
+                            <img
+                                className="w-55 h-55 hover:scale-104"
+                                src={item.url} />
+                            <span
+                                onClick={() => handleDelete(item.public_id)}
+                                className="absolute top-0 right-0 bg-yellow-200 px-3 py-1 rounded-sm">x</span>
+                        </div>
+                    )
+                }
+            </div>
+            <div>
+                <input
+                    onChange={handleOnChange}
+                    type="file"
+                    name="images"
+                    multiple
+                />
+            </div>
+        </div >
     )
 }
 export default Uploadfile
