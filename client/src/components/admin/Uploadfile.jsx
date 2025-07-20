@@ -14,7 +14,7 @@ const Uploadfile = (props) => {
             setIsLoading(true);
             let allFiles = form.images; // [] empty array
             for (let i = 0; i < files.length; i++) {
-                console.log(files[i]);
+                // console.log(files[i]);
 
                 // Check validate file type
                 const file = files[i];
@@ -32,8 +32,23 @@ const Uploadfile = (props) => {
                     100,
                     0,
                     (data) => {
+                        // console.log("data", data)
                         // endpoint Backend
                         uploadFiles(token, data)
+                            // server response to client
+                            .then((res) => {
+                                console.log(res)
+
+                                allFiles.push(res.data)
+                                setForm({
+                                    ...form,
+                                    images: allFiles
+                                })
+                                toast.success("Upload image Successfully!")
+                            })
+                            .catch((error) => {
+                                console.log(error)
+                            })
                     },
                     "base64"
                 )

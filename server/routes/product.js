@@ -8,8 +8,8 @@ const {
   read,
   remove,
   listby,
-  images,
-  removeImages,
+  createImages,
+  removeImage,
   searchFilters,
 } = require("../controllers/product.js");
 const { authCheck, adminCheck } = require("../middlewares/authCheck.js");
@@ -22,7 +22,7 @@ router.delete("/product/:id", remove);
 router.post("/productby", listby);
 router.post("/search/filters", searchFilters);
 
-router.post("/images", authCheck, adminCheck, images);
-router.delete("/removeimages", authCheck, adminCheck, removeImages);
+router.post("/images", authCheck, adminCheck, createImages);
+router.delete("/removeimages", authCheck, adminCheck, removeImage);
 
 module.exports = router;
