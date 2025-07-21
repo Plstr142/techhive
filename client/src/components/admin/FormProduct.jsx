@@ -30,7 +30,7 @@ const FormProduct = () => {
 
     useEffect(() => {
         getCategory(token);
-        getProduct(token, 30);
+        getProduct(token, 100);
     }, [])
 
 
@@ -111,6 +111,7 @@ const FormProduct = () => {
                     <thead>
                         <tr>
                             <th scope="col">No.</th>
+                            <th scope="col">Image</th>
                             <th scope="col">Product Name</th>
                             <th scope="col">Description</th>
                             <th scope="col">Price</th>
@@ -127,6 +128,14 @@ const FormProduct = () => {
                                 return (
                                     <tr key={index}>
                                         <th scope="row">{index + 1}</th>
+                                        <td>
+                                            {
+                                                item.images.length > 0
+                                                    ? <img
+                                                        className="w-30 h-30 rounded-md shadow-md hover:scale-104 m-1"
+                                                        src={item.images[0].url} /> : <div className="w-30 h-30 bg-gray-200 rounded-md flex items-center justify-center hover:scale-104 shadow-sm m-1 text-gray-300">No Image</div>
+                                            }
+                                        </td>
                                         <td>{item.title}</td>
                                         <td>{item.description}</td>
                                         <td>{item.price}</td>

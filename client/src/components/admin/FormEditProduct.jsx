@@ -114,7 +114,7 @@ const FormEditProduct = () => {
                 {/* Upload file */}
                 <Uploadfile form={form} setForm={setForm} />
 
-                <button className="bg-blue-500 rounded-sm p-1">Add product</button>
+                <button className="bg-blue-500 rounded-sm p-1">Submit</button>
 
                 <hr />
                 <br />
