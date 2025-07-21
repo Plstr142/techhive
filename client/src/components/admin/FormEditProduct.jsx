@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import usetechhiveStore from "../../store/techhive-store"
-import { createProduct } from "../../api/product";
+import { readProduct, listProduct, updateProduct } from "../../api/product";
 import { toast } from 'react-toastify';
 import Uploadfile from "./UploadFile";
-import { Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 // obj initialstate
 const initialState = {
@@ -16,23 +16,33 @@ const initialState = {
     "images": []
 }
 
-const FormProduct = () => {
+const FormEditProduct = () => {
+    const { id } = useParams();
+    const navigate = useNavigate();
+
     // Global state
     const token = usetechhiveStore((state) => state.token);
     const getCategory = usetechhiveStore((state) => state.getCategory);
     const categories = usetechhiveStore((state) => state.categories);
-    // get list product from state to show on table 
-    const getProduct = usetechhiveStore((state) => state.getProduct);
-    const products = usetechhiveStore((state) => state.products);
     // console.log(products)
 
     const [form, setForm] = useState(initialState);
 
     useEffect(() => {
         getCategory(token);
-        getProduct(token, 30);
+        fetchProduct(token, id, form)
     }, [])
 
+    const fetchProduct = async (token, id, form) => {
+        try {
+            const res = await readProduct(token, id, form);
+            console.log("res from backend", res)
+            setForm(res.data)
+        } catch (error) {
+            console.log("Error fetch data", error)
+        }
+    };
+    console.log(form)
 
     const handleOnChange = (e) => {
         console.log(e.target.name, e.target.value)
@@ -42,9 +52,10 @@ const FormProduct = () => {
     const handleOnSubmit = async (e) => {
         e.preventDefault()
         try {
-            const res = await createProduct(token, form)
+            const res = await updateProduct(token, id, form)
             console.log(res)
             toast.success(`Add product ${res.data.title} successfully!`)
+            navigate("/admin/product")
         } catch (error) {
             console.log(error)
         }
@@ -107,49 +118,9 @@ const FormProduct = () => {
 
                 <hr />
                 <br />
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">No.</th>
-                            <th scope="col">Product Name</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Sold</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Manage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            products.map((item, index) => {
-                                // console.log(item)
-                                return (
-                                    <tr key={index}>
-                                        <th scope="row">{index + 1}</th>
-                                        <td>{item.title}</td>
-                                        <td>{item.description}</td>
-                                        <td>{item.price}</td>
-                                        <td>{item.quantity}</td>
-                                        <td>{item.sold}</td>
-                                        <td>{item.updatedAt}</td>
-                                        <td>
-                                            <p className="bg-yellow-500 rounded-sm py-1 px-4 shadow-sm">
-                                                <Link to={'/admin/product/' + item.id}>
-                                                    Edit
-                                                </Link>
-                                            </p>
-                                            <p>Delete</p>
-                                        </td>
-                                    </tr>
-                                )
-                            })
-                        }
 
-                    </tbody>
-                </table>
             </form>
         </div>
     )
 }
-export default FormProduct 
+export default FormEditProduct 
