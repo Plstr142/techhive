@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import usetechhiveStore from "../../store/techhive-store"
-import { createProduct } from "../../api/product";
+import { createProduct, deleteProduct } from "../../api/product";
 import { toast } from 'react-toastify';
 import Uploadfile from "./UploadFile";
 import { Link } from "react-router-dom";
@@ -47,6 +47,17 @@ const FormProduct = () => {
             toast.success(`Add product ${res.data.title} successfully!`)
         } catch (error) {
             console.log(error)
+        }
+    }
+
+    const handleDelete = async (id) => {
+        if (window.confirm("Are you confirm to delete?")) {
+            try {
+                const res = await deleteProduct(token, id);
+                console.log(res)
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 
@@ -126,7 +137,7 @@ const FormProduct = () => {
                             products.map((item, index) => {
                                 // console.log(item)
                                 return (
-                                    <tr key={index}>
+                                    <tr key={index} className="border-1 border-gray-100 bg-gray-100 items-center">
                                         <th scope="row">{index + 1}</th>
                                         <td>
                                             {
@@ -141,20 +152,24 @@ const FormProduct = () => {
                                         <td>{item.price}</td>
                                         <td>{item.quantity}</td>
                                         <td>{item.sold}</td>
-                                        <td>{item.updatedAt}</td>
-                                        <td>
-                                            <p className="bg-yellow-500 rounded-sm py-1 px-4 shadow-sm">
-                                                <Link to={'/admin/product/' + item.id}>
-                                                    Edit
-                                                </Link>
-                                            </p>
-                                            <p>Delete</p>
+                                        <td className="py-1 px-2 border-gray-100 bg-gray-300">{item.updatedAt}</td>
+                                        <td className="text-center p-2 h-32 w-24">
+                                            <div className="flex flex-col items-center justify-center gap-1 h-full">
+                                                <p className="bg-blue-400 hover:text-white rounded-sm py-1 px-4 shadow-sm w-full cursor-pointer hover:scale-104">
+                                                    <Link to={'/admin/product/' + item.id}>Edit</Link>
+                                                </p>
+                                                <p
+                                                    className="bg-black hover:bg-red-500 hover:text-black text-white rounded-sm py-1 px-4 shadow-sm cursor-pointer hover:scale-104"
+                                                    onClick={() => handleDelete(item.id)}
+                                                >
+                                                    Delete
+                                                </p>
+                                            </div>
                                         </td>
                                     </tr>
                                 )
                             })
                         }
-
                     </tbody>
                 </table>
             </form>
