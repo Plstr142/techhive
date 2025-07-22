@@ -54,7 +54,7 @@ const FormEditProduct = () => {
         try {
             const res = await updateProduct(token, id, form)
             console.log(res)
-            toast.success(`Add product ${res.data.title} successfully!`)
+            toast.success(`Update product ${res.data.title} successfully!`)
             navigate("/admin/product")
         } catch (error) {
             console.log(error)

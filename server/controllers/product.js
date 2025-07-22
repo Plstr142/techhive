@@ -1,6 +1,13 @@
 const prisma = require("../config/prisma");
 const cloudinary = require("cloudinary").v2;
 
+// Configuration
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 exports.create = async (req, res) => {
   try {
     // code
@@ -119,6 +126,34 @@ exports.remove = async (req, res) => {
   try {
     const { id } = req.params;
 
+    // Step 1 Finding include image
+    const product = await prisma.product.findFirst({
+      where: {
+        id: Number(id),
+      },
+      include: {
+        images: true,
+      },
+    });
+    if (!product) {
+      return res.status(400).json({ message: "Product not found!" });
+    }
+    // console.log(product);
+
+    // Step 2 Hold On Promise deleted image on cloudinary
+    const deletedImage = product.images.map(
+      (image) =>
+        new Promise((resolve, reject) => {
+          // Delete image on cloudinary
+          cloudinary.uploader.destroy(image.public_id, (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          });
+        })
+    );
+    await Promise.all(deletedImage);
+
+    // Step 3 Delete product
     await prisma.product.delete({
       where: {
         id: Number(id),
@@ -235,13 +270,6 @@ exports.searchFilters = async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 };
-
-// Configuration
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
 
 exports.createImages = async (req, res) => {
   try {

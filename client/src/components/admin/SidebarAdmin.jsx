@@ -7,8 +7,8 @@ import { LogOut } from 'lucide-react';
 
 const SidebarAdmin = () => {
     return (
-        <div className="bg-gray-800 w-64 text-gray-100 flex flex-col h-screen">
-            <div className="h-24 bg-gray-900 flex items-center justify-center text-2xl font-bold">
+        <div className="bg-black w-64 text-gray-100 flex flex-col h-screen">
+            <div className="h-24 bg-gray-600 flex items-center justify-center text-2xl font-bold">
                 Admin Panel
             </div>
 
@@ -17,7 +17,7 @@ const SidebarAdmin = () => {
                     to={"/admin"}
                     // cuz this is always active
                     end
-                    className={({ isActive }) => isActive ? "bg-gray-900 rounded-sm text-white px-4 py-2 hover:bg-gray-700 flex items-center"
+                    className={({ isActive }) => isActive ? "bg-gray-600 rounded-sm text-white px-4 py-2 hover:bg-gray-700 flex items-center"
                         : "text-gray-300 px-4 py-2 hover:bg-gray-700 hover:text-white rounded flex items-center"
 
                     }>
@@ -26,7 +26,7 @@ const SidebarAdmin = () => {
                 </NavLink>
                 <NavLink
                     to={"manage"}
-                    className={({ isActive }) => isActive ? "bg-gray-900 rounded-sm text-white px-4 py-2 hover:bg-gray-700 flex items-center"
+                    className={({ isActive }) => isActive ? "bg-gray-600 rounded-sm text-white px-4 py-2 hover:bg-gray-700 flex items-center"
                         : "text-gray-300 px-4 py-2 hover:bg-gray-700 hover:text-white rounded flex items-center"
 
                     }>
@@ -35,7 +35,7 @@ const SidebarAdmin = () => {
                 </NavLink>
                 <NavLink
                     to={"category"}
-                    className={({ isActive }) => isActive ? "bg-gray-900 rounded-sm text-white px-4 py-2 hover:bg-gray-700 flex items-center"
+                    className={({ isActive }) => isActive ? "bg-gray-600 rounded-sm text-white px-4 py-2 hover:bg-gray-700 flex items-center"
                         : "text-gray-300 px-4 py-2 hover:bg-gray-700 hover:text-white rounded flex items-center"
 
                     }>
@@ -44,7 +44,7 @@ const SidebarAdmin = () => {
                 </NavLink>
                 <NavLink
                     to={"product"}
-                    className={({ isActive }) => isActive ? "bg-gray-900 rounded-sm text-white px-4 py-2 hover:bg-gray-700 flex items-center"
+                    className={({ isActive }) => isActive ? "bg-gray-600 rounded-sm text-white px-4 py-2 hover:bg-gray-700 flex items-center"
                         : "text-gray-300 px-4 py-2 hover:bg-gray-700 hover:text-white rounded flex items-center"
 
                     }>
@@ -56,7 +56,7 @@ const SidebarAdmin = () => {
             <div>
                 <NavLink
                     // to={""}
-                    className={({ isActive }) => isActive ? "bg-gray-900 rounded-sm text-white px-4 py-2 hover:bg-gray-700 flex items-center"
+                    className={({ isActive }) => isActive ? "bg-gray-500 text-white px-4 py-2 hover:bg-gray-700 flex items-center"
                         : "text-gray-300 px-4 py-2 hover:bg-gray-700 hover:text-white rounded flex items-center"
 
                     }>

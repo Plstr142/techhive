@@ -3,6 +3,8 @@ import { toast } from "react-toastify";
 import Resize from "react-image-file-resizer";
 import { removeFiles, uploadFiles } from "../../api/product";
 import usetechhiveStore from "../../store/techhive-store";
+import { Loader } from "lucide-react";
+// import { Loader } from 'lucide-react';
 
 const Uploadfile = (props) => {
     const { form, setForm } = props;
@@ -10,6 +12,7 @@ const Uploadfile = (props) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleOnChange = (e) => {
+        setIsLoading(true)
         const files = e.target.files;
         if (files) {
             setIsLoading(true);
@@ -45,10 +48,12 @@ const Uploadfile = (props) => {
                                     ...form,
                                     images: allFiles
                                 })
+                                setIsLoading(false)
                                 toast.success("Upload image Successfully!")
                             })
                             .catch((error) => {
                                 console.log(error)
+                                setIsLoading(false)
                             })
                     },
                     "base64"
@@ -87,6 +92,10 @@ const Uploadfile = (props) => {
         <div className="my-4">
 
             <div className="flex mx-4 gap-4 my-4">
+                {
+                    isLoading && <Loader className="w-9 h-9 animate-spin" />
+                }
+
                 {/* Image */}
                 {
                     form.images.map((item, index) =>

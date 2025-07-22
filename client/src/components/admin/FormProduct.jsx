@@ -7,10 +7,10 @@ import { Link } from "react-router-dom";
 
 // obj initialstate
 const initialState = {
-    "title": "SSD WD BLUE",
-    "description": "desc",
-    "price": 500000,
-    "quantity": 1000,
+    "title": "",
+    "description": "",
+    "price": 0,
+    "quantity": 0,
     "categoryId": "",
     // filtered data on localstorage
     "images": []
@@ -26,7 +26,15 @@ const FormProduct = () => {
     const products = usetechhiveStore((state) => state.products);
     // console.log(products)
 
-    const [form, setForm] = useState(initialState);
+    const [form, setForm] = useState({
+        "title": "",
+        "description": "",
+        "price": 0,
+        "quantity": 0,
+        "categoryId": "",
+        // filtered data on localstorage
+        "images": []
+    });
 
     useEffect(() => {
         getCategory(token);
@@ -44,6 +52,8 @@ const FormProduct = () => {
         try {
             const res = await createProduct(token, form)
             console.log(res)
+            setForm(initialState)
+            getProduct(token)
             toast.success(`Add product ${res.data.title} successfully!`)
         } catch (error) {
             console.log(error)
@@ -55,6 +65,8 @@ const FormProduct = () => {
             try {
                 const res = await deleteProduct(token, id);
                 console.log(res)
+                toast.success("Deleted product successfully!")
+                getProduct(token)
             } catch (error) {
                 console.log(error)
             }
@@ -114,14 +126,13 @@ const FormProduct = () => {
                 {/* Upload file */}
                 <Uploadfile form={form} setForm={setForm} />
 
-                <button className="bg-blue-500 rounded-sm p-1">Add product</button>
+                <button className="bg-black text-white rounded-sm p-2 mb-9 cursor-pointer hover:scale-104 hover:-translate-y-1 hover:duration-200">Add product</button>
 
-                <hr />
                 <br />
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">No.</th>
+                <table className="table w-full border-transparent">
+                    <thead className="h-10">
+                        <tr className="bg-gray-400">
+                            <th scope="col" className="rounded-tl-sm">No.</th>
                             <th scope="col">Image</th>
                             <th scope="col">Product Name</th>
                             <th scope="col">Description</th>
@@ -129,7 +140,7 @@ const FormProduct = () => {
                             <th scope="col">Quantity</th>
                             <th scope="col">Sold</th>
                             <th scope="col">Date</th>
-                            <th scope="col">Manage</th>
+                            <th scope="col" className="rounded-tr-sm">Manage</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -155,11 +166,11 @@ const FormProduct = () => {
                                         <td className="py-1 px-2 border-gray-100 bg-gray-300">{item.updatedAt}</td>
                                         <td className="text-center p-2 h-32 w-24">
                                             <div className="flex flex-col items-center justify-center gap-1 h-full">
-                                                <p className="bg-blue-400 hover:text-white rounded-sm py-1 px-4 shadow-sm w-full cursor-pointer hover:scale-104">
+                                                <p className="bg-gray-500 hover:text-white rounded-sm py-1 px-4 shadow-sm w-full cursor-pointer hover:scale-104 hover:-translate-y-1 hover:duration-200">
                                                     <Link to={'/admin/product/' + item.id}>Edit</Link>
                                                 </p>
                                                 <p
-                                                    className="bg-black hover:bg-red-500 hover:text-black text-white rounded-sm py-1 px-4 shadow-sm cursor-pointer hover:scale-104"
+                                                    className="bg-black hover:bg-red-500 hover:text-black text-white rounded-sm py-1 px-4 shadow-sm cursor-pointer hover:scale-104 hover:duration-200"
                                                     onClick={() => handleDelete(item.id)}
                                                 >
                                                     Delete
