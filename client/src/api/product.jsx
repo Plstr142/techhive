@@ -8,12 +8,8 @@ export const createProduct = async (token, form) => {
     })
 }
 
-export const listProduct = async (token, count = 100) => {
-    return await axios.get("/api/products/" + count, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        }
-    })
+export const listProduct = async (count = 100) => {
+    return await axios.get("/api/products/" + count)
 }
 
 export const readProduct = async (token, id) => {

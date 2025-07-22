@@ -37,8 +37,8 @@ const FormProduct = () => {
     });
 
     useEffect(() => {
-        getCategory(token);
-        getProduct(token, 100);
+        getCategory();
+        getProduct(100);
     }, [])
 
 
@@ -53,7 +53,7 @@ const FormProduct = () => {
             const res = await createProduct(token, form)
             console.log(res)
             setForm(initialState)
-            getProduct(token)
+            getProduct()
             toast.success(`Add product ${res.data.title} successfully!`)
         } catch (error) {
             console.log(error)
@@ -66,7 +66,7 @@ const FormProduct = () => {
                 const res = await deleteProduct(token, id);
                 console.log(res)
                 toast.success("Deleted product successfully!")
-                getProduct(token)
+                getProduct()
             } catch (error) {
                 console.log(error)
             }
