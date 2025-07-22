@@ -2,7 +2,7 @@ import axios from "axios"
 import { create } from "zustand"
 import { persist, createJSONStorage } from "zustand/middleware"
 import { listCategory } from "../api/Category"
-import { listProduct } from "../api/product"
+import { listProduct, searchFilters } from "../api/product"
 
 // return as obj
 const techhiveStore = (set) => ({
@@ -37,7 +37,15 @@ const techhiveStore = (set) => ({
         } catch (error) {
             console.log(error)
         }
-    }
+    },
+    actionSearchFilters: async (arg) => {
+        try {
+            const res = await searchFilters(arg)
+            set({ products: res.data })
+        } catch (error) {
+            console.log(error)
+        }
+    },
 })
 
 const usePersist = {

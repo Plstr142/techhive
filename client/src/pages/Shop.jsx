@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import ProductCard from "../components/card/ProductCard"
 import usetechhiveStore from "../store/techhive-store";
+import SearchCard from "../components/card/SearchCard";
 
 const Shop = () => {
     // zustand Global state
@@ -15,7 +16,7 @@ const Shop = () => {
         <div className="flex">
             {/* Search Bar */}
             <div className="w-1/4 p-4 bg-gray-100 h-screen">
-                Searchbar
+                <SearchCard />
             </div>
 
             {/* Product */}

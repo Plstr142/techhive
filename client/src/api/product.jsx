@@ -12,6 +12,7 @@ export const listProduct = async (count = 100) => {
     return await axios.get("/api/products/" + count)
 }
 
+
 export const readProduct = async (token, id) => {
     return await axios.get("/api/product/" + id, {
         headers: {
@@ -56,4 +57,8 @@ export const removeFiles = async (token, public_id) => {
             Authorization: `Bearer ${token}`,
         }
     })
+}
+
+export const searchFilters = async (arg) => {
+    return await axios.post("/api/search/filters", arg)
 }
