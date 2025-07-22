@@ -1,7 +1,15 @@
+import React, { useEffect } from "react";
 import ProductCard from "../components/card/ProductCard"
+import usetechhiveStore from "../store/techhive-store";
 
 const Shop = () => {
-    // const token = ;
+    // zustand Global state
+    const getProduct = usetechhiveStore((state) => state.getProduct);
+    const products = usetechhiveStore((state) => state.products);
+
+    useEffect(() => {
+        getProduct(9)
+    }, [])
 
     return (
         <div className="flex">
@@ -15,16 +23,12 @@ const Shop = () => {
                 <p className="text-2xl font-bold mb-4">All Product</p>
                 <div className="flex flex-row flex-wrap gap-4 justify-center">
                     {/* Product Card */}
-                    <ProductCard />
-                    {/* Product Card */}
-                </div>
-                <div className="flex flex-row flex-wrap gap-1 justify-center">
-                    {/* Product Card */}
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
+                    {
+                        products.map((item, index) =>
+                            <ProductCard key={index} item={item} />
+                        )
+                    }
+
                     {/* Product Card */}
                 </div>
             </div>
