@@ -17,6 +17,7 @@ const CartCard = () => {
                                 No image
                             </div>
                             <div>
+                                <p className="font-bold">Title</p>
                                 <p className="text-sm">Description</p>
                             </div>
                         </div>
