@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import ProductCard from "../components/card/ProductCard"
 import usetechhiveStore from "../store/techhive-store";
 import SearchCard from "../components/card/SearchCard";
+import CartCard from "../components/card/CartCard";
 
 const Shop = () => {
     // zustand Global state
@@ -36,7 +37,7 @@ const Shop = () => {
 
             {/* Cart */}
             <div className="w-1/4 bg-gray-100 p-4 overflow-y-auto">
-                Cart
+                <CartCard />
             </div>
         </div>
     )

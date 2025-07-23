@@ -54,13 +54,14 @@ const SearchCard = () => {
         }
         setCategorySelected(inState)
 
-        if (inState > 0) {
+
+        if (inState.length > 0) {
             actionSearchFilters({ category: inState })
         } else {
             getProduct()
         }
-
     };
+
     console.log(categorySelected)
 
     // Step 3 Search by Price 
@@ -86,7 +87,7 @@ const SearchCard = () => {
             <input
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Search for products, brands or categories"
-                className="border rounded-md w-full mb-4"
+                className="border border-gray-300 p-1 rounded-md w-full mb-4"
                 type="text"
             />
             <hr />
