@@ -1,7 +1,7 @@
 import { ShoppingCart } from 'lucide-react';
 
 const ProductCard = ({ item }) => {
-    console.log(item)
+    // console.log(item)
     return (
         <div className="border-transparent rounded-sm shadow-md p-2 w-60">
             <div>

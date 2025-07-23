@@ -6,15 +6,27 @@ const SearchCard = () => {
     const products = usetechhiveStore((state) => state.products);
     const actionSearchFilters = usetechhiveStore((state) => state.actionSearchFilters);
 
+    const getCategory = usetechhiveStore((state) => state.getCategory);
+    const categories = usetechhiveStore((state) => state.categories);
 
     const [text, setText] = useState("");
+    const [categorySelected, setCategorySelected] = useState([]);
+
+    // console.log(categories)
+    useEffect(() => {
+        getCategory();
+    }, [])
+
+
     // Step 1 Search Text
-    console.log(text)
+    // console.log(text)
 
     useEffect(() => {
         const delay = setTimeout(() => {
-            actionSearchFilters({ query: text })
-            if (!text) {
+
+            if (text) {
+                actionSearchFilters({ query: text });
+            } else {
                 getProduct();
             }
         }, 300);
@@ -24,19 +36,60 @@ const SearchCard = () => {
 
 
     // Step 2 Search by Category
+    const handleCheck = (e) => {
+        // console.log(e.target.value)
+        const inCheck = e.target.value // value on checked or unchecked 
+        const inState = [...categorySelected] // [] array
+        const findCheck = inState.indexOf(inCheck) // If not found, return -1.
+
+        if (findCheck === -1) {
+            inState.push(inCheck)
+        } else {
+            inState.splice(findCheck, 1)
+        }
+        setCategorySelected(inState)
+
+        if (inState > 0) {
+            actionSearchFilters({ category: inState })
+        } else {
+            getProduct()
+        }
+
+    };
+    console.log(categorySelected)
 
     // Step 3 Search by Price 
+
 
     return (
         <div>
             <h1 className="text-xl font-bold mb-4">Finding Product</h1>
-
+            {/* Search by Text */}
             <input
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Search for products, brands or categories"
                 className="border rounded-md w-full mb-4"
                 type="text"
             />
+            <hr />
+            {/* Search by Category */}
+            <div>
+                <h1 className="">Category Product</h1>
+                <div>
+                    {
+                        categories.map((item, index) =>
+                            <div className="flex flex-row gap-2">
+                                <input
+                                    onChange={handleCheck}
+                                    value={item.id}
+                                    type="checkbox" />
+                                <label>{item.name}</label>
+                            </div>
+                        )
+                    }
+                </div>
+            </div>
+
         </div>
     )
 }
