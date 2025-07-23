@@ -1,7 +1,10 @@
 import { ShoppingCart } from 'lucide-react';
+import usetechhiveStore from '../../store/techhive-store';
 
 const ProductCard = ({ item }) => {
+    const actionAddtoCart = usetechhiveStore((state) => state.actionAddtoCart);
     // console.log(item)
+
     return (
         <div className="border-transparent rounded-sm shadow-md p-2 w-60">
             <div>
@@ -24,7 +27,9 @@ const ProductCard = ({ item }) => {
 
             <div className="flex justify-between items-center">
                 <span className='text-md font-bold'>{item.price}</span>
-                <button className='bg-gray-100 p-2 rounded-sm hover:bg-gray-300 shadow-sm hover:duration-200'><ShoppingCart /></button>
+                <button
+                    onClick={() => actionAddtoCart(item)}
+                    className='bg-gray-100 p-2 rounded-sm hover:bg-gray-300 shadow-sm hover:duration-200'><ShoppingCart /></button>
             </div>
         </div>
     )

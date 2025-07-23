@@ -5,11 +5,21 @@ import { listCategory } from "../api/Category"
 import { listProduct, searchFilters } from "../api/product"
 
 // return as obj
-const techhiveStore = (set) => ({
+const techhiveStore = (set, get) => ({
     user: null,
     token: null,
     categories: [],
     products: [],
+    carts: [],
+    actionAddtoCart: (product) => {
+        const carts = get().carts
+        const updateCart = [...carts, { ...product, count: 1 }];
+
+        // Step Unique
+
+        set({ carts: updateCart })
+        console.log("Click add in Zustand", carts)
+    },
     actionLogin: async (form) => {
         const res = await axios.post("/api/login", form)
         // console.log(res.data.token)
