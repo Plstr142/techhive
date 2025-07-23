@@ -145,7 +145,7 @@ const MainNav = () => {
                             </a>
                             <a
                                 href="/login"
-                                className="px-4 py-2 bg-gradient-to-r from-gray-700 to-gray-800 text-white rounded-lg hover:from-gray-600 hover:to-gray-700 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-black/50 border border-gray-600/50"
+                                className="px-4 py-2 bg-gradient-to-r from-gray-700 to-gray-800 text-white rounded-lg hover:from-gray-600 hover:to-gray-700 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-black/50"
                             >
                                 Login
                             </a>
