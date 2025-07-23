@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react"
 import usetechhiveStore from "../../store/techhive-store";
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
 const SearchCard = () => {
     const getProduct = usetechhiveStore((state) => state.getProduct);
@@ -11,6 +13,9 @@ const SearchCard = () => {
 
     const [text, setText] = useState("");
     const [categorySelected, setCategorySelected] = useState([]);
+
+    const [price, setPrice] = useState([1000, 30000]);
+    const [ok, setOk] = useState(false);
 
     // console.log(categories)
     useEffect(() => {
@@ -59,7 +64,20 @@ const SearchCard = () => {
     console.log(categorySelected)
 
     // Step 3 Search by Price 
+    useEffect(() => {
+        actionSearchFilters({ price })
+        // ok dependency
+    }, [ok])
 
+    const handlePrice = (value) => {
+        console.log(value)
+        setPrice(value)
+
+        setTimeout(() => {
+            // set ok dependency   
+            setOk(!ok)
+        }, 300)
+    };
 
     return (
         <div>
@@ -87,6 +105,28 @@ const SearchCard = () => {
                             </div>
                         )
                     }
+                </div>
+            </div>
+
+            <hr />
+
+            {/* Search by Price */}
+            <div>
+                <h1>Finding Price</h1>
+                <div>
+                    <div className="flex justify-between">
+                        <span>Min : {price[0]}</span>
+                        <span>Max : {price[1]}</span>
+                    </div>
+
+                    <Slider
+                        onChange={handlePrice}
+                        className="slider bg-gray-100"
+                        range
+                        min={0}
+                        max={100000}
+                        defaultValue={[1000, 1000000]}
+                    />
                 </div>
             </div>
 
