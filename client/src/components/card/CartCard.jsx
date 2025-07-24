@@ -5,6 +5,8 @@ const CartCard = () => {
     // Javascript
     const carts = usetechhiveStore((state) => state.carts);
     const actionUpdateQuantity = usetechhiveStore((state) => state.actionUpdateQuantity);
+    const actionRemoveProduct = usetechhiveStore((state) => state.actionRemoveProduct);
+    const getTotalPrice = usetechhiveStore((state) => state.getTotalPrice);
     console.log(carts)
 
     return (
@@ -31,7 +33,9 @@ const CartCard = () => {
                                     </div>
                                 </div>
                                 {/* Right */}
-                                <div className='text-red-700 p-2'>
+                                <div
+                                    onClick={() => actionRemoveProduct(item.id)}
+                                    className='text-red-700 p-2'>
                                     <Trash2 />
                                 </div>
                             </div>
@@ -67,7 +71,7 @@ const CartCard = () => {
                 {/* Total */}
                 <div className="flex justify-between pt-2 px-2">
                     <span className='font-bold'>Total</span>
-                    <span className='text-md font-semibold'>6100000</span>
+                    <span className='text-md font-semibold'>{getTotalPrice()}</span>
                 </div>
 
                 {/* Button */}

@@ -23,7 +23,7 @@ const techhiveStore = (set, get) => ({
         set({ carts: unique })
     },
     actionUpdateQuantity: (productId, newQuantity) => {
-        console.log("Update Click", productId, newQuantity)
+        // console.log("Update Click", productId, newQuantity)
         set((state) => ({
             carts: state.carts.map((item) =>
                 item.id === productId
@@ -31,6 +31,20 @@ const techhiveStore = (set, get) => ({
                     : item
             )
         }));
+    },
+    actionRemoveProduct: (productId) => {
+        // console.log("remove succesffully!", productId)
+        set((state) => ({
+            carts: state.carts.filter((item) =>
+                item.id !== productId
+            )
+        }))
+    },
+
+    getTotalPrice: () => {
+        return get().carts.reduce((total, item) => {
+            return total + item.price * item.count;
+        }, 0);
     },
 
     actionLogin: async (form) => {
