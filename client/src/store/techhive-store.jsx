@@ -3,6 +3,7 @@ import { create } from "zustand"
 import { persist, createJSONStorage } from "zustand/middleware"
 import { listCategory } from "../api/Category"
 import { listProduct, searchFilters } from "../api/product"
+import _ from "lodash"
 
 // return as obj
 const techhiveStore = (set, get) => ({
@@ -16,9 +17,11 @@ const techhiveStore = (set, get) => ({
         const updateCart = [...carts, { ...product, count: 1 }];
 
         // Step Unique
+        const unique = _.unionWith(updateCart, _.isEqual);
+        // console.log("Click add in Zustand", updateCart)
+        // console.log("unique", unique)
+        set({ carts: unique })
 
-        set({ carts: updateCart })
-        console.log("Click add in Zustand", carts)
     },
     actionLogin: async (form) => {
         const res = await axios.post("/api/login", form)

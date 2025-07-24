@@ -97,7 +97,7 @@ const SearchCard = () => {
                 <div>
                     {
                         categories.map((item, index) =>
-                            <div className="flex flex-row gap-2">
+                            <div className="flex flex-row gap-2" key={index}>
                                 <input
                                     onChange={handleCheck}
                                     value={item.id}
