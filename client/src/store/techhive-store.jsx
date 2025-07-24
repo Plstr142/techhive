@@ -21,8 +21,18 @@ const techhiveStore = (set, get) => ({
         // console.log("Click add in Zustand", updateCart)
         // console.log("unique", unique)
         set({ carts: unique })
-
     },
+    actionUpdateQuantity: (productId, newQuantity) => {
+        console.log("Update Click", productId, newQuantity)
+        set((state) => ({
+            carts: state.carts.map((item) =>
+                item.id === productId
+                    ? { ...item, count: Math.max(1, newQuantity) }
+                    : item
+            )
+        }));
+    },
+
     actionLogin: async (form) => {
         const res = await axios.post("/api/login", form)
         // console.log(res.data.token)

@@ -62,7 +62,7 @@ const SearchCard = () => {
         }
     };
 
-    console.log(categorySelected)
+    // console.log(categorySelected)
 
     // Step 3 Search by Price 
     useEffect(() => {
