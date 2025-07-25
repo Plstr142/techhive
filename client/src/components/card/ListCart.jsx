@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 
 const ListCart = () => {
     const carts = usetechhiveStore((state) => state.carts);
+    const user = usetechhiveStore((state) => state.user);
     const getTotalPrice = usetechhiveStore((state) => state.getTotalPrice);
+    console.log("user--", user)
 
     return (
         <div className="bg-gray-100 rounded-sm p-4">
@@ -57,20 +59,21 @@ const ListCart = () => {
                 <div className='bg-black p-4 rounded-sm shadow-md flex flex-col justify-center items-center gap-4'>
                     <div className='flex flex-row justify-between gap-10'>
                         <p className='text-2xl font-bold text-white'>Total</p>
-
-                        <Link to={"/shop"}>
-                            <button className='bg-white shadow-md hover:duration-100 hover:bg-black hover:text-white text-black w-35 rounded-sm p-1'>Change Order</button>
-                        </Link>
                     </div>
                     <div className='flex flex-row justify-between gap-6'>
                         <span className='text-lg flex text-white'>Net Total : {getTotalPrice()}</span>
 
-                        <Link to={""}>
-                            <button className='bg-white shadow-md hover:duration-100 hover:scale-101 text-black w-24 rounded-sm p-1'>purchase</button>
-                        </Link>
+                        <div className='text-white'>
+                            {
+                                user ? <Link to={""}>
+                                    <button className='bg-white shadow-md hover:duration-100 hover:scale-101 text-black w-24 rounded-sm p-1'>purchase</button>
+                                </Link> : <Link to={"/login"}>
+                                    <button className='bg-gradient-to-r from-gray-700 to-gray-800 text-white hover:from-gray-600 hover:to-gray-700 shadow-md hover:duration-100 hover:scale-101 w-24 rounded-sm p-1'>Login</button>
+                                </Link>
+                            }
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div >
     )

@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import usetechhiveStore from '../store/techhive-store';
+import { Link } from "react-router-dom";
 
 const MainNav = () => {
+    const carts = usetechhiveStore((state) => state.carts);
+    console.log(carts.length)
+
+
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [scrollY, setScrollY] = useState(0);
 
@@ -106,34 +112,37 @@ const MainNav = () => {
                 {/* Navigation Content */}
                 <div className="relative z-10 mx-auto px-4 h-full">
                     <div className="flex justify-between h-16">
-                        <div className="flex items-center gap-4">
-                            <a
-                                href="/"
+                        <div className="flex items-center gap-6">
+                            <Link
+                                to="/"
                                 className="text-2xl font-bold text-gray-200 hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-lg"
                             >
                                 Logo
-                            </a>
-                            <a
-                                href="/"
+                            </Link>
+                            <Link
+                                to="/"
                                 className="text-gray-300/80 hover:text-gray-100 transition-all duration-300 hover:scale-105 relative group"
                             >
                                 Home
                                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-400 transition-all duration-300 group-hover:w-full" />
-                            </a>
-                            <a
-                                href="/shop"
+                            </Link>
+                            <Link
+                                to="/shop"
                                 className="text-gray-300/80 hover:text-gray-100 transition-all duration-300 hover:scale-105 relative group"
                             >
                                 Shop
                                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-400 transition-all duration-300 group-hover:w-full" />
-                            </a>
-                            <a
-                                href="/cart"
-                                className="text-gray-300/80 hover:text-gray-100 transition-all duration-300 hover:scale-105 relative group"
+                            </Link>
+                            <Link
+                                to="/cart"
+                                className="text-gray-300/80 hover:text-gray-100 transition-all duration-300 hover:scale-105 relative group py-4"
                             >
                                 Cart
-                                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-400 transition-all duration-300 group-hover:w-full" />
-                            </a>
+                                {
+                                    carts.length > 0 && (<span className="absolute top-0 bg-white rounded-full px-2 text-black"> {carts.length}</span>)
+                                }
+                                {/* <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-400 transition-all duration-300 group-hover:w-full" /> */}
+                            </Link>
                         </div>
 
                         <div className="flex items-center gap-4">
