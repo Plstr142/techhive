@@ -1,6 +1,10 @@
+import ListCart from "../components/card/ListCart"
+
 const Cart = () => {
     return (
-        <div>Cart</div>
+        <div>
+            <ListCart />
+        </div>
     )
 }
 export default Cart

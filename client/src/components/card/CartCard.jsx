@@ -1,5 +1,6 @@
-import { Trash2 } from 'lucide-react';
+import { Trash2, Minus, Plus } from 'lucide-react';
 import usetechhiveStore from '../../store/techhive-store';
+import { Link } from "react-router-dom";
 
 const CartCard = () => {
     // Javascript
@@ -24,9 +25,17 @@ const CartCard = () => {
                             <div className="flex justify-between">
                                 {/* Left */}
                                 <div className="flex gap-2 items-center">
-                                    <div className="flex py-10 px-4 bg-gray-200 rounded-sm text-center items-center">
-                                        No image
-                                    </div>
+                                    {
+                                        item.images && item.images.length > 0
+                                            ? <img
+                                                className='w-20 h-20 rounded-sm'
+                                                src={item.images[0].url} /> : <div className="flex w-20 h-20 bg-gray-200 rounded-sm text-center items-center justify-center">
+                                                No image
+                                            </div>
+                                    }
+
+
+
                                     <div>
                                         <p className="font-bold">{item.title}</p>
                                         <p className="text-sm">{item.description}</p>
@@ -35,7 +44,8 @@ const CartCard = () => {
                                 {/* Right */}
                                 <div
                                     onClick={() => actionRemoveProduct(item.id)}
-                                    className='text-red-700 p-2'>
+                                    className='text-red-700 p-2'
+                                >
                                     <Trash2 />
                                 </div>
                             </div>
@@ -43,19 +53,19 @@ const CartCard = () => {
                             {/* Row 2 */}
                             <div className="flex justify-between">
 
-                                <div className="flex flex-row gap-3 p-1">
+                                <div className="flex flex-row gap-3 p-1 items-center">
                                     <button
                                         onClick={() => actionUpdateQuantity(item.id, item.count - 1)}
-                                        className="bg-gray-200 w-6 h-full text-center rounded-sm hover:bg-gray-300">
-                                        -
+                                        className="bg-gray-200 py-2 px-2 text-center rounded-sm hover:bg-gray-300">
+                                        <Minus size={14} />
                                     </button>
-                                    <span>
+                                    <span className='py-1 px-1'>
                                         {item.count}
                                     </span>
                                     <button
                                         onClick={() => actionUpdateQuantity(item.id, item.count + 1)}
-                                        className="bg-gray-200 w-6 h-full text-center rounded-sm hover:bg-gray-300">
-                                        +
+                                        className="bg-gray-200 py-2 px-2 text-center rounded-sm hover:bg-gray-300">
+                                        <Plus size={14} />
                                     </button>
                                 </div>
 
@@ -75,9 +85,11 @@ const CartCard = () => {
                 </div>
 
                 {/* Button */}
-                <button className='mt-4 bg-black text-white w-full py-2 rounded-sm shadow-md hover:duration-100 hover:scale-101'>
-                    Checkout
-                </button>
+                <Link to="/cart">
+                    <button className='mt-4 bg-black text-white w-full py-2 rounded-sm shadow-md hover:duration-100 hover:scale-101'>
+                        Checkout
+                    </button>
+                </Link>
             </div>
 
         </div>
