@@ -6,7 +6,6 @@ const MainNav = () => {
     const carts = usetechhiveStore((state) => state.carts);
     console.log(carts.length)
 
-
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [scrollY, setScrollY] = useState(0);
 

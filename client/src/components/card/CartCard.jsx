@@ -70,7 +70,7 @@ const CartCard = () => {
                                 </div>
 
                                 <div className="font-bold">
-                                    <p className='font-semibold'>{item.price}</p>
+                                    <p className='font-semibold'>{item.price * item.count}</p>
                                 </div>
                             </div>
                         </div>

@@ -1,19 +1,38 @@
 import { List, ListCheck, Trash2 } from 'lucide-react';
 import usetechhiveStore from '../../store/techhive-store';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { createUserCart } from '../../api/user';
+import { toast } from "react-toastify"
 
 const ListCart = () => {
-    const carts = usetechhiveStore((state) => state.carts);
+    const cart = usetechhiveStore((state) => state.carts);
     const user = usetechhiveStore((state) => state.user);
+    const token = usetechhiveStore((state) => state.token);
     const getTotalPrice = usetechhiveStore((state) => state.getTotalPrice);
-    console.log("user--", user)
+
+    const navigate = useNavigate()
+
+    const handleSaveCart = async () => {
+        await createUserCart(token, { cart })
+            .then((res) => {
+                console.log(res)
+                toast.success("Add to cart successfully!", {
+                    position: "top-center",
+                });
+                navigate("/checkout")
+            })
+            .catch((error) => {
+                console.log("error", error)
+            })
+    }
+
 
     return (
         <div className="bg-gray-100 rounded-sm p-4">
             {/* Header */}
             <div className='flex gap-4 mb-4'>
                 <ListCheck size={36} />
-                <p className='text-2xl font-bold'>{carts.length} Product</p>
+                <p className='text-2xl font-bold'>{cart.length} Product</p>
             </div>
 
             {/* List */}
@@ -21,7 +40,7 @@ const ListCart = () => {
                 {/* Left */}
                 <div className='col-span-2'>
                     {
-                        carts.map((item, index) =>
+                        cart.map((item, index) =>
                             <div key={index} className="bg-white p-2 space-y-2 shadow-md rounded-sm mb-2">
                                 {/* Row 1 */}
                                 <div className="flex justify-between">
@@ -45,7 +64,7 @@ const ListCart = () => {
                                     </div>
                                     {/* Right */}
                                     <div>
-                                        <div className="font-semibold">{item.price}</div>
+                                        <div className="font-semibold">{item.price * item.count}</div>
                                     </div>
 
                                 </div>
@@ -66,7 +85,9 @@ const ListCart = () => {
                         <div className='text-white'>
                             {
                                 user ? <Link to={""}>
-                                    <button className='bg-white shadow-md hover:duration-100 hover:scale-101 text-black w-24 rounded-sm p-1'>purchase</button>
+                                    <button
+                                        onClick={handleSaveCart}
+                                        className='bg-white shadow-md hover:duration-100 hover:scale-101 text-black w-24 rounded-sm p-1'>purchase</button>
                                 </Link> : <Link to={"/login"}>
                                     <button className='bg-gradient-to-r from-gray-700 to-gray-800 text-white hover:from-gray-600 hover:to-gray-700 shadow-md hover:duration-100 hover:scale-101 w-24 rounded-sm p-1'>Login</button>
                                 </Link>
