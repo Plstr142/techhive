@@ -12,7 +12,7 @@ const CartCard = () => {
 
     return (
         <div>
-            <h1 className="text-2xl font-bold">Cart</h1>
+            <h1 className="text-xl font-bold">Cart</h1>
             {/* Border */}
 
             <div className="p-2">
@@ -81,7 +81,7 @@ const CartCard = () => {
                 {/* Total */}
                 <div className="flex justify-between pt-2 px-2">
                     <span className='font-bold'>Total</span>
-                    <span className='text-md font-semibold'>{getTotalPrice()}</span>
+                    <span className='text-lg font-semibold'>{getTotalPrice()}</span>
                 </div>
 
                 {/* Button */}

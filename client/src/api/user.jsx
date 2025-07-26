@@ -7,3 +7,11 @@ export const createUserCart = async (token, cart) => {
         }
     })
 }
+
+export const listUserCart = async (token) => {
+    return await axios.get("/api/user/cart", {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    })
+}
