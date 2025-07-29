@@ -194,10 +194,15 @@ exports.saveAddress = async (req, res) => {
 exports.saveOrder = async (req, res) => {
   try {
     // Step 0 Check Stripe
-    console.log(req.body);
-    return res.send("Hello test payment payload");
+    // console.log(req.body);
+    // return res.send("Hello test payment payload");
+    // stripePaymentId String
+    // amount          Int
+    // status          String
+    // currency        String
+    const { id, amount, status, currency } = req.body.paymentIntent;
 
-    // Step 1 Get User Cart
+    // Step 1 Get User Carts
     const userCart = await prisma.cart.findFirst({
       where: {
         orderedById: Number(req.user.id),
@@ -211,29 +216,31 @@ exports.saveOrder = async (req, res) => {
     }
 
     // Check quantity
-    for (const item of userCart.products) {
-      // console.log(item);
-      const product = await prisma.product.findUnique({
-        where: {
-          id: item.productId,
-        },
-        select: {
-          quantity: true,
-          title: true,
-        },
-      });
+    // for (const item of userCart.products) {
+    //   // console.log(item);
+    //   const product = await prisma.product.findUnique({
+    //     where: {
+    //       id: item.productId,
+    //     },
+    //     select: {
+    //       quantity: true,
+    //       title: true,
+    //     },
+    //   });
 
-      // console.log(item);
-      // console.log(product);
-      if (!product || item.count > product.quantity) {
-        return res.status(400).json({
-          ok: false,
-          message: `Sorry, the product ${
-            product?.title || "product"
-          } not enough`,
-        });
-      }
-    }
+    //   // console.log(item);
+    //   // console.log(product);
+    //   if (!product || item.count > product.quantity) {
+    //     return res.status(400).json({
+    //       ok: false,
+    //       message: `Sorry, the product ${
+    //         product?.title || "product"
+    //       } not enough`,
+    //     });
+    //   }
+    // }
+
+    const amountTHB = Number(amount) / 100;
 
     // Create a new Order
     const order = await prisma.order.create({
@@ -249,6 +256,10 @@ exports.saveOrder = async (req, res) => {
           connect: { id: req.user.id },
         },
         cartTotal: userCart.cartTotal,
+        stripePaymentId: id,
+        amount: amountTHB,
+        status: status,
+        currency: currency,
       },
     });
 

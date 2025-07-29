@@ -35,7 +35,7 @@ export default function CheckoutForm() {
         console.log(payload)
 
         if (payload.error) {
-            setMessage(error.message);
+            setMessage(payload.error.message);
         } else {
             // Create Order
             saveOrder(token, payload)

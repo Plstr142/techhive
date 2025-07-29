@@ -22,9 +22,8 @@ npm install @prisma/client
 npx prisma migrate dev --name ecom
 
 
-
-// update Scheme
-npx prisma db push   // no log
+// update Schema
+npx prisma db push   // no keep a log
 npx prisma migrate dev --create-only
 npx prisma migrate dev --name ecom
 
