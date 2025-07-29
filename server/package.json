@@ -20,6 +20,7 @@
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.10",
-    "prisma": "^6.11.1"
+    "prisma": "^6.11.1",
+    "stripe": "^18.3.0"
   }
 }

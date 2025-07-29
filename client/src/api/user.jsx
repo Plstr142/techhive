@@ -15,3 +15,19 @@ export const listUserCart = async (token) => {
         }
     })
 }
+
+export const saveAddress = async (token, address) => {
+    return await axios.post("/api/user/address", { address }, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    })
+}
+
+export const saveOrder = async (token, payload) => {
+    return await axios.post("/api/user/order", payload, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    })
+}

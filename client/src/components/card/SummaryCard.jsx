@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
 import usetechhiveStore from "../../store/techhive-store";
-import { listUserCart } from "../../api/user";
+import { listUserCart, saveAddress } from "../../api/user";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const SummaryCard = () => {
     const token = usetechhiveStore((state) => state.token);
     const [products, setProducts] = useState([]);
     const [cartTotal, setCartTotal] = useState(0);
+
+    const [address, setAddress] = useState("");
+    const [addressSaved, setAddressSaved] = useState(false);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         handleGetUserCart(token);
@@ -23,6 +30,29 @@ const SummaryCard = () => {
             })
     };
 
+    const handleSaveAddress = () => {
+        console.log(address)
+        if (!address) {
+            return toast.warning("Please fill address");
+        }
+        saveAddress(token, address)
+            .then((res) => {
+                console.log(res)
+                toast.success(res.data.message)
+                setAddressSaved(true)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
+    const handleGoToPayment = () => {
+        if (!addressSaved) {
+            return toast.warning("Please fill address")
+        }
+        navigate("/user/payment");
+    };
+
     console.log(products)
 
     return (
@@ -33,8 +63,14 @@ const SummaryCard = () => {
                     <div className="bg-gray-100 p-4 rounded-sm 
                     border border-gray-100 shadow-md space-y-4">
                         <h1 className="font-bold text-xl">Address</h1>
-                        <textarea className="w-full px-2 bg-white rounded-sm" />
-                        <button className="bg-black text-white px-4 py-2 rounded-sm hover:duration-100 hover:scale-101">
+                        <textarea
+                            required
+                            onChange={(e) => setAddress(e.target.value)}
+                            placeholder="Please fill your address"
+                            className="w-full px-2 bg-white rounded-sm" />
+                        <button
+                            onClick={handleSaveAddress}
+                            className="bg-black text-white px-4 py-2 rounded-sm hover:duration-100 hover:scale-101">
                             Save Address
                         </button>
                     </div>
@@ -90,11 +126,13 @@ const SummaryCard = () => {
 
                         <hr className="text-gray-200" />
                         <div>
-                            <button className="bg-black text-white p-2 w-45 rounded-md hover:duration-100 hover:scale-101">
+                            <button
+                                onClick={handleGoToPayment}
+                                // disabled={!addressSaved}
+                                className="bg-black text-white p-2 w-45 rounded-md hover:duration-100 hover:scale-101">
                                 Proceed with payment
                             </button>
                         </div>
-
                     </div>
                 </div>
             </div>

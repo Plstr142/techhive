@@ -184,7 +184,7 @@ exports.saveAddress = async (req, res) => {
         address: address,
       },
     });
-    res.json({ ok: true, message: "Address update sucessfully!" });
+    res.json({ ok: true, message: "Address update successfully!" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Server Error" });
@@ -193,6 +193,10 @@ exports.saveAddress = async (req, res) => {
 
 exports.saveOrder = async (req, res) => {
   try {
+    // Step 0 Check Stripe
+    console.log(req.body);
+    return res.send("Hello test payment payload");
+
     // Step 1 Get User Cart
     const userCart = await prisma.cart.findFirst({
       where: {
