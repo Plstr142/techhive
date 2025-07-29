@@ -23,9 +23,9 @@ const ListCart = () => {
             })
             .catch((error) => {
                 console.log("error", error)
+                toast.warning(error.response.data.message)
             })
     }
-
 
     return (
         <div className="bg-gray-100 rounded-sm p-4">
