@@ -51,6 +51,15 @@ const SidebarAdmin = () => {
                     <PackageSearch className="mr-2" />
                     Product
                 </NavLink>
+                <NavLink
+                    to={"orders"}
+                    className={({ isActive }) => isActive ? "bg-gray-600 rounded-sm text-white px-4 py-2 hover:bg-gray-700 flex items-center"
+                        : "text-gray-300 px-4 py-2 hover:bg-gray-700 hover:text-white rounded flex items-center"
+
+                    }>
+                    <PackageSearch className="mr-2" />
+                    Orders
+                </NavLink>
             </nav>
 
             <div>

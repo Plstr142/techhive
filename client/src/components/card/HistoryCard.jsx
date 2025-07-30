@@ -4,6 +4,7 @@ import usetechhiveStore from "../../store/techhive-store"
 
 const HistoryCard = () => {
     const token = usetechhiveStore((state) => state.token);
+    // console.log(token)
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
@@ -13,7 +14,7 @@ const HistoryCard = () => {
     const handleGetOrders = (token) => {
         getOrders(token)
             .then((res) => {
-                console.log(res)
+                // console.log(res)
                 setOrders(res.data.orders)
             })
             .catch((error) => {
@@ -49,19 +50,21 @@ const HistoryCard = () => {
                                 {/* table loop product */}
                                 <div>
                                     <table className="border border-gray-200 w-full">
-                                        <tr className="bg-gray-200">
-                                            <th>PRODUCT</th>
-                                            <th>PRICE</th>
-                                            <th>QUANTITY</th>
-                                            <th>TOTAL</th>
-                                        </tr>
+                                        <thead>
+                                            <tr className="bg-gray-200">
+                                                <th>PRODUCT</th>
+                                                <th>PRICE</th>
+                                                <th>QUANTITY</th>
+                                                <th>TOTAL</th>
+                                            </tr>
+                                        </thead>
 
                                         <tbody>
                                             {
                                                 item.products?.map((product, index) => {
-                                                    console.log(product)
+                                                    // console.log(product)
                                                     return (
-                                                        <tr>
+                                                        <tr key={index}>
                                                             <td>{product.product.title}</td>
                                                             <td>{product.product.price}</td>
                                                             <td>{product.count}</td>
