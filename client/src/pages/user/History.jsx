@@ -1,4 +1,5 @@
-import HistoryCard from "../../components/HistoryCard"
+import HistoryCard from "../../components/card/HistoryCard"
+
 
 const History = () => {
     return (

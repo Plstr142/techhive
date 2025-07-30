@@ -31,3 +31,11 @@ export const saveOrder = async (token, payload) => {
         }
     })
 }
+
+export const getOrders = async (token) => {
+    return await axios.get("/api/user/order", {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    })
+}
