@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
-import { getOrdersAdmin } from "../../api/admin"
+import { getOrdersAdmin, changeOrderStatus } from "../../api/admin"
 import usetechhiveStore from "../../store/techhive-store"
+import { toast } from "react-toastify"
 
 const TableOrders = () => {
     const token = usetechhiveStore((state) => state.token);
@@ -19,6 +20,32 @@ const TableOrders = () => {
             .catch((error) => {
                 console.log(error)
             })
+    };
+
+    const handleChangeOrderStatus = (token, orderId, orderStatus) => {
+        console.log(orderId, orderStatus)
+        changeOrderStatus(token, orderId, orderStatus)
+            .then((res) => {
+                console.log(res);
+                toast.success("Update Status Successfully!");
+                handleGetOrder(token)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
+    const getStatusColor = (status) => {
+        switch (status) {
+            case "Not Process":
+                return "bg-gray-200"
+            case "Processing":
+                return "bg-blue-300"
+            case "Completed":
+                return "bg-green-200"
+            case "Cancel":
+                return "bg-red-200"
+        }
     };
 
     return (
@@ -57,8 +84,25 @@ const TableOrders = () => {
                                             }
                                         </td>
                                         <td>{item.cartTotal}</td>
-                                        <td>{item.orderStatus}</td>
-                                        <td>action</td>
+
+                                        <td>
+                                            <span className={`${getStatusColor(item.orderStatus)} px-2 py-2 rounded-full`}>
+                                                {item.orderStatus}
+                                            </span>
+                                        </td>
+
+
+                                        <td>
+                                            <select
+                                                value={item.orderStatus}
+                                                onChange={(e) => handleChangeOrderStatus(token, item.id, e.target.value)}
+                                            >
+                                                <option>Not Process</option>
+                                                <option>Processing</option>
+                                                <option>Completed</option>
+                                                <option>Cancel</option>
+                                            </select>
+                                        </td>
                                     </tr>
                                 )
                             })
