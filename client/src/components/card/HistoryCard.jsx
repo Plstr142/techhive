@@ -50,7 +50,7 @@ const HistoryCard = () => {
                         return (
                             <div
                                 key={index}
-                                className="bg-gradient-to-r from-gray-700 to-gray-800 p-4 rounded-sm shadow-md">
+                                className="bg-gray-600 p-4 rounded-sm shadow-md">
                                 {/* header */}
                                 <div className="flex justify-between mb-4">
                                     <div>

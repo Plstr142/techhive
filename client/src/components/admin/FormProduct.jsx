@@ -77,41 +77,43 @@ const FormProduct = () => {
     }
 
     return (
-        <div className="container mx-auto p-4 bg-white rounded-sm">
-            <form onSubmit={handleOnSubmit}>
-                <h1>Add product data</h1>
-                <input
-                    className="border rounded-sm"
-                    value={form.title}
-                    onChange={handleOnChange}
-                    placeholder="Title"
-                    name="title"
-                />
-                <input
-                    className="border rounded-sm"
-                    value={form.description}
-                    onChange={handleOnChange}
-                    placeholder="Description"
-                    name="description"
-                />
-                <input
-                    type="number"
-                    className="border rounded-sm"
-                    value={form.price}
-                    onChange={handleOnChange}
-                    placeholder="price"
-                    name="price"
-                />
-                <input
-                    type="number"
-                    className="border rounded-sm"
-                    value={form.quantity}
-                    onChange={handleOnChange}
-                    placeholder="quantity"
-                    name="quantity"
-                />
+        <div className="container mx-auto p-4 bg-white rounded-sm shadow-md">
+            <form className="flex flex-col gap-2" onSubmit={handleOnSubmit}>
+                <p className="text-xl">Add product data</p>
+                <div className="flex flex-row gap-2">
+                    <input
+                        className="border rounded-sm"
+                        value={form.title}
+                        onChange={handleOnChange}
+                        placeholder="Title"
+                        name="title"
+                    />
+                    <input
+                        className="border rounded-sm"
+                        value={form.description}
+                        onChange={handleOnChange}
+                        placeholder="Description"
+                        name="description"
+                    />
+                    <input
+                        type="number"
+                        className="border rounded-sm"
+                        value={form.price}
+                        onChange={handleOnChange}
+                        placeholder="price"
+                        name="price"
+                    />
+                    <input
+                        type="number"
+                        className="border rounded-sm"
+                        value={form.quantity}
+                        onChange={handleOnChange}
+                        placeholder="quantity"
+                        name="quantity"
+                    />
+                </div>
                 <select
-                    className="border rounded-sm"
+                    className="border rounded-sm p-1 w-35 text-center bg-black text-white hover:scale-101 hover:-translate-y-1 hover:duration-100"
                     name="categoryId"
                     onChange={handleOnChange}
                     required
@@ -129,9 +131,8 @@ const FormProduct = () => {
                 {/* Upload file */}
                 <Uploadfile form={form} setForm={setForm} />
 
-                <button className="bg-black text-white rounded-sm p-2 mb-9 cursor-pointer hover:scale-104 hover:-translate-y-1 hover:duration-200">Add product</button>
+                <button className="bg-black text-white rounded-sm p-2 mb-9 w-30 cursor-pointer hover:scale-104 hover:-translate-y-1 hover:duration-200">Add product</button>
 
-                <br />
                 <table className="table w-full border-transparent">
                     <thead className="h-10">
                         <tr className="bg-gray-400">

@@ -54,7 +54,7 @@ const TableOrders = () => {
     };
 
     return (
-        <div className="container mx-auto p-4 bg-white rounded-sm">
+        <div className="container mx-auto p-4 bg-white rounded-sm shadow-md">
             <div>
                 <table className="w-full">
                     <thead>

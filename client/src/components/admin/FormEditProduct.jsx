@@ -62,9 +62,9 @@ const FormEditProduct = () => {
     }
 
     return (
-        <div className="container mx-auto p-4 bg-white rounded-sm">
+        <div className="container mx-auto p-4 bg-white rounded-sm shadow-md">
             <form onSubmit={handleOnSubmit}>
-                <h1>Add product data</h1>
+                <p className="text-xl">Add product data</p>
                 <input
                     className="border rounded-sm"
                     value={form.title}

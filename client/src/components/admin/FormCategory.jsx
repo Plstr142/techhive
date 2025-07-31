@@ -45,11 +45,11 @@ const FormCategory = () => {
     }
 
     return (
-        <div className="container mx-auto p-4 bg-white rounded-sm">
-            <h1>Category Management</h1>
-            <form className="my-4" onSubmit={handleSubmit}>
-                <input onChange={(e) => setName(e.target.value)} className="border" type="text" />
-                <button className="bg-blue-500">Add Category</button>
+        <div className="flex flex-col container mx-auto p-4 bg-white rounded-sm shadow-md">
+            <p className="text-xl">Category Management</p>
+            <form className="gap-2 flex flex-row items-center h-12" onSubmit={handleSubmit}>
+                <input onChange={(e) => setName(e.target.value)} className="border rounded-sm" type="text" />
+                <button className="bg-black text-white rounded-sm p-1 cursor-pointer hover:scale-104 hover:-translate-y-1 hover:duration-200">Add Category</button>
             </form>
 
             <hr />
