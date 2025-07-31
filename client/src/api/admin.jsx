@@ -27,4 +27,22 @@ export const getListAllUsers = async (token) => {
             Authorization: `Bearer ${token}`,
         }
     })
+}
+
+export const changeUserStatus = async (token, value) => {
+    // code body
+    return axios.post("/api/change-status", value, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    })
+}
+
+export const changeUserRole = async (token, value) => {
+    // code body
+    return axios.post("/api/change-role", value, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    })
 }   

@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom"
 import { LayoutDashboard } from 'lucide-react';
-import { Cog } from 'lucide-react';
 import { ChartBarStacked } from 'lucide-react';
+import { UserCog } from 'lucide-react';
 import { PackageSearch } from 'lucide-react';
 import { ListOrdered } from 'lucide-react';
 import { LogOut } from 'lucide-react';
@@ -31,7 +31,7 @@ const SidebarAdmin = () => {
                         : "text-gray-300 px-4 py-2 hover:bg-gray-700 hover:text-white rounded flex items-center"
 
                     }>
-                    <Cog className="mr-2" />
+                    <UserCog className="mr-2" />
                     Manage
                 </NavLink>
                 <NavLink
