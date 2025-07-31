@@ -1,5 +1,6 @@
 import { ShoppingCart } from 'lucide-react';
 import usetechhiveStore from '../../store/techhive-store';
+import { numberFormat } from "../../utils/Number";
 
 const ProductCard = ({ item }) => {
     const actionAddtoCart = usetechhiveStore((state) => state.actionAddtoCart);
@@ -26,7 +27,7 @@ const ProductCard = ({ item }) => {
             </div>
 
             <div className="flex justify-between items-center">
-                <span className='text-md font-bold'>{item.price}</span>
+                <span className='text-md font-bold'>{numberFormat(item.price)}</span>
                 <button
                     onClick={() => actionAddtoCart(item)}
                     className='bg-gray-100 p-2 rounded-sm hover:bg-gray-300 shadow-sm hover:duration-200'><ShoppingCart /></button>

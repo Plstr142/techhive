@@ -1,6 +1,7 @@
 import { Trash2, Minus, Plus } from 'lucide-react';
 import usetechhiveStore from '../../store/techhive-store';
 import { Link } from "react-router-dom";
+import { numberFormat } from "../../utils/Number";
 
 const CartCard = () => {
     // Javascript
@@ -70,7 +71,7 @@ const CartCard = () => {
                                 </div>
 
                                 <div className="font-bold">
-                                    <p className='font-semibold'>{item.price * item.count}</p>
+                                    <p className='font-semibold'>{numberFormat(item.price * item.count)}</p>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +82,7 @@ const CartCard = () => {
                 {/* Total */}
                 <div className="flex justify-between pt-2 px-2">
                     <span className='font-bold'>Total</span>
-                    <span className='text-lg font-semibold'>{getTotalPrice()}</span>
+                    <span className='text-lg font-semibold'>{numberFormat(getTotalPrice())}</span>
                 </div>
 
                 {/* Button */}

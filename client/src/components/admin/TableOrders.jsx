@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { getOrdersAdmin, changeOrderStatus } from "../../api/admin"
 import usetechhiveStore from "../../store/techhive-store"
 import { toast } from "react-toastify"
+import { numberFormat } from "../../utils/Number"
 
 const TableOrders = () => {
     const token = usetechhiveStore((state) => state.token);
@@ -78,12 +79,12 @@ const TableOrders = () => {
                                                 item.products?.map((product, index) => (
                                                     <li key={index}>
                                                         {product.product.title} {"  "}
-                                                        <span className="text-sm">{product.count} x {product.product.price}</span>
+                                                        <span className="text-sm">{product.count} x {numberFormat(product.product.price)}</span>
                                                     </li>
                                                 ))
                                             }
                                         </td>
-                                        <td>{item.cartTotal}</td>
+                                        <td>{numberFormat(item.cartTotal)}</td>
 
                                         <td>
                                             <span className={`${getStatusColor(item.orderStatus)} px-2 py-2 rounded-full`}>

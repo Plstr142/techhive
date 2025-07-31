@@ -4,6 +4,7 @@ import { createProduct, deleteProduct } from "../../api/product";
 import { toast } from 'react-toastify';
 import Uploadfile from "./UploadFile";
 import { Link } from "react-router-dom";
+import { numberFormat } from "../../utils/Number";
 
 // obj initialstate
 const initialState = {
@@ -160,7 +161,7 @@ const FormProduct = () => {
                                         </td>
                                         <td>{item.title}</td>
                                         <td>{item.description}</td>
-                                        <td>{item.price}</td>
+                                        <td>{numberFormat(item.price)}</td>
                                         <td>{item.quantity}</td>
                                         <td>{item.sold}</td>
                                         <td className="py-1 px-2 border-gray-100 bg-gray-300">{item.updatedAt}</td>

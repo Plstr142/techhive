@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import usetechhiveStore from "../../store/techhive-store";
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import { numberFormat } from "../../utils/Number";
 
 const SearchCard = () => {
     const getProduct = usetechhiveStore((state) => state.getProduct);
@@ -116,8 +117,8 @@ const SearchCard = () => {
                 <h1>Finding Price</h1>
                 <div>
                     <div className="flex justify-between">
-                        <span>Min : {price[0]}</span>
-                        <span>Max : {price[1]}</span>
+                        <span>Min : {numberFormat(price[0])}</span>
+                        <span>Max : {numberFormat(price[1])}</span>
                     </div>
 
                     <Slider

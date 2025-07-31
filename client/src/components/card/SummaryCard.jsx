@@ -3,6 +3,7 @@ import usetechhiveStore from "../../store/techhive-store";
 import { listUserCart, saveAddress } from "../../api/user";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { numberFormat } from "../../utils/Number";
 
 const SummaryCard = () => {
     const token = usetechhiveStore((state) => state.token);
@@ -91,12 +92,12 @@ const SummaryCard = () => {
                                     <div className="flex justify-between items-end">
                                         <div>
                                             <p className="font-bold">{item.product.title}</p>
-                                            <p className="text-sm">Quantity : {item.count} x {item.product.price}</p>
+                                            <p className="text-sm">Quantity : {item.count} x {numberFormat(item.product.price)}</p>
                                         </div>
 
                                         <div>
                                             <p className="text-black font-bold">
-                                                {item.count * item.product.price}
+                                                {numberFormat(item.count * item.product.price)}
                                             </p>
                                         </div>
                                     </div>
@@ -120,7 +121,7 @@ const SummaryCard = () => {
                         <div>
                             <div className="flex justify-between">
                                 <p className="font-bold">Net Total : </p>
-                                <p className="text-black font-bold text-lg">{cartTotal}</p>
+                                <p className="text-black font-bold text-lg">{numberFormat(cartTotal)}</p>
                             </div>
                         </div>
 

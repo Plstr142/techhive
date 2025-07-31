@@ -3,6 +3,7 @@ import usetechhiveStore from '../../store/techhive-store';
 import { Link, useNavigate } from 'react-router-dom';
 import { createUserCart } from '../../api/user';
 import { toast } from "react-toastify"
+import { numberFormat } from "../../utils/Number";
 
 const ListCart = () => {
     const cart = usetechhiveStore((state) => state.carts);
@@ -59,12 +60,14 @@ const ListCart = () => {
 
                                         <div>
                                             <p className="font-bold">{item.title}</p>
-                                            <p className="text-sm">{item.price} x {item.count}</p>
+                                            <p className="text-sm">{numberFormat(item.price)} x {item.count}</p>
                                         </div>
                                     </div>
                                     {/* Right */}
                                     <div>
-                                        <div className="font-semibold">{item.price * item.count}</div>
+                                        <div className="font-semibold">
+                                            {numberFormat(item.price * item.count)}
+                                        </div>
                                     </div>
 
                                 </div>
@@ -80,7 +83,7 @@ const ListCart = () => {
                         <p className='text-2xl font-bold text-white'>Total</p>
                     </div>
                     <div className='flex flex-row justify-between gap-6'>
-                        <span className='text-lg flex text-white'>Net Total : {getTotalPrice()}</span>
+                        <span className='text-xl flex text-white font-bold'>Net Total : {numberFormat(getTotalPrice())}</span>
 
                         <div className='text-white'>
                             {
