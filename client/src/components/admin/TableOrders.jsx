@@ -3,6 +3,10 @@ import { getOrdersAdmin, changeOrderStatus } from "../../api/admin"
 import usetechhiveStore from "../../store/techhive-store"
 import { toast } from "react-toastify"
 import { numberFormat } from "../../utils/Number"
+// import moment from "moment"
+import { dateFormat } from "../../utils/dateformat"
+// th
+// import moment from "moment/min/moment-with-locales"
 
 const TableOrders = () => {
     const token = usetechhiveStore((state) => state.token);
@@ -57,12 +61,14 @@ const TableOrders = () => {
                         <tr className="bg-gray-200 border border-gray-100">
                             <th>Index</th>
                             <th>Username</th>
+                            <th>Date</th>
                             <th>Product</th>
                             <th>Total</th>
                             <th>Status</th>
                             <th>Manage</th>
                         </tr>
                     </thead>
+
                     <tbody>
                         {
                             orders?.map((item, index) => {
@@ -74,6 +80,14 @@ const TableOrders = () => {
                                             <p>{item.orderedBy.email}</p>
                                             <p>{item.orderedBy.address}</p>
                                         </td>
+
+                                        <td>
+                                            {dateFormat(item.createdAt)}
+                                            {/* th */}
+                                            {/* {moment(item.createdAt).locale("th").format("LL")} */}
+                                            {/* {dateFormat(item.createdAt)} */}
+                                        </td>
+
                                         <td className="px-2 py-6">
                                             {
                                                 item.products?.map((product, index) => (

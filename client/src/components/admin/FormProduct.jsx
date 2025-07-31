@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 import Uploadfile from "./UploadFile";
 import { Link } from "react-router-dom";
 import { numberFormat } from "../../utils/Number";
+// import moment from "moment";
+import { dateFormat } from "../../utils/dateformat";
 
 // obj initialstate
 const initialState = {
@@ -164,7 +166,7 @@ const FormProduct = () => {
                                         <td>{numberFormat(item.price)}</td>
                                         <td>{item.quantity}</td>
                                         <td>{item.sold}</td>
-                                        <td className="py-1 px-2 border-gray-100 bg-gray-300">{item.updatedAt}</td>
+                                        <td className="py-1 px-2 border-gray-100 bg-gray-300">{dateFormat(item.createdAt)}</td>
                                         <td className="text-center p-2 h-32 w-24">
                                             <div className="flex flex-col items-center justify-center gap-1 h-full">
                                                 <p className="bg-gray-500 hover:text-white rounded-sm py-1 px-4 shadow-sm w-full cursor-pointer hover:scale-104 hover:-translate-y-1 hover:duration-200">
