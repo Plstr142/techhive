@@ -30,7 +30,7 @@ const MainNav = () => {
                                     key={label}
                                     to={to}
                                     className={({ isActive }) =>
-                                        `relative group px-3 py-2 text-sm font-medium transition-all duration-200 ${isActive ? "text-white" : "text-gray-300"}`
+                                        `relative group px-3 py-2 text-lg font-medium transition-all duration-200 ${isActive ? "text-white" : "text-gray-300"}`
                                     }
                                 >
                                     {label}
