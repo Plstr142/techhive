@@ -7,15 +7,21 @@ import {
 import "../stripe.css";
 import { saveOrder } from "../api/user";
 import usetechhiveStore from "../store/techhive-store";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom"
 
 export default function CheckoutForm() {
+    const token = usetechhiveStore((state) => state.token);
+    const clearCart = usetechhiveStore((state) => state.clearCart);
+
+    const navigate = useNavigate();
+
     const stripe = useStripe();
     const elements = useElements();
 
     const [message, setMessage] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const token = usetechhiveStore((state) => state.token);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -32,19 +38,30 @@ export default function CheckoutForm() {
             redirect: "if_required"
         });
 
-        console.log(payload)
+        console.log("payload", payload)
 
         if (payload.error) {
             setMessage(payload.error.message);
-        } else {
+            console.log("error")
+            toast.error(payload.error.message)
+        }
+        else if (payload.paymentIntent.status === "succeeded") {
+            console.log("Ready or Saveorder")
             // Create Order
             saveOrder(token, payload)
                 .then((res) => {
                     console.log(res)
+                    clearCart()
+                    toast.success("Payment Successfully!")
+                    navigate("/user/history")
                 })
                 .catch((error) => {
                     console.log(error)
+                    toast.success("Payment could not be completed!")
                 })
+        }
+        else {
+            console.log("Something wrong!!!")
         }
 
         setIsLoading(false);

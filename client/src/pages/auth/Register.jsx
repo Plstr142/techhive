@@ -42,30 +42,63 @@ const Register = () => {
     }
 
     return (
-        <div>
-            Sign up account
-            <form onSubmit={handleSubmit}>
-                Email:
-                <input className="border rounded-sm"
-                    name="email"
-                    type="email"
-                    onChange={handleOnChange} />
-                Password:
-                <input className="border rounded-sm"
-                    name="password"
-                    type="text"
-                    onChange={handleOnChange}
-                />
-                Confirm Password:
-                <input className="border rounded-sm"
-                    onChange={handleOnChange}
-                    name="confirmPassword"
-                    type="text"
-                />
-                <button className="bg-blue-500 rounded-sm">
-                    Register
-                </button>
-            </form>
+        <div className="min-h-screen bg-gray-600 flex items-center justify-center">
+            <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
+                <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">
+                    Sign up account
+                </h2>
+
+                <form onSubmit={handleSubmit} className="space-y-5">
+                    <div>
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                            Email
+                        </label>
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            onChange={handleOnChange}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:black focus:border-transparent transition"
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+                            Password
+                        </label>
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            onChange={handleOnChange}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:black focus:border-transparent transition"
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+                            Confirm Password
+                        </label>
+                        <input
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            type="password"
+                            onChange={handleOnChange}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:black focus:border-transparent transition"
+                            required
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        className="w-full py-2 px-4 bg-black text-white rounded-md shadow-md hover:scale-101 hover:duration-100"
+                    >
+                        Register
+                    </button>
+                </form>
+            </div>
         </div>
     )
 }

@@ -82,23 +82,33 @@ const ListCart = () => {
                     <div className='flex flex-row justify-between gap-10'>
                         <p className='text-2xl font-bold text-white'>Total</p>
                     </div>
-                    <div className='flex flex-row justify-between gap-6'>
+                    <div className='flex flex-row justify-between gap-6 items-center'>
                         <span className='text-xl flex text-white font-bold'>Net Total : {numberFormat(getTotalPrice())}</span>
 
-                        <div className='text-white'>
+                        <div className='flex gap-2 text-white bg-transparent w-52 h-10 items-center justify-center rounded-sm'>
                             {
                                 user ? <Link to={""}>
                                     <button
+                                        disabled={cart.length < 1}
                                         onClick={handleSaveCart}
-                                        className='bg-white shadow-md hover:duration-100 hover:scale-101 text-black w-24 rounded-sm p-1'>purchase</button>
-                                </Link> : <Link to={"/login"}>
+                                        className='bg-white text-black hover:text-white hover:bg-gray-600 shadow-md hover:duration-100 hover:scale-102 w-24 rounded-sm p-1'>purchase</button>
+                                </Link> : (<Link to={"/login"}>
                                     <button className='bg-gradient-to-r from-gray-700 to-gray-800 text-white hover:from-gray-600 hover:to-gray-700 shadow-md hover:duration-100 hover:scale-101 w-24 rounded-sm p-1'>Login</button>
                                 </Link>
-                            }
+                                )}
+                            <Link to={"/shop"}>
+
+                                <button
+                                    className="bg-white text-black hover:text-white hover:bg-black shadow-md hover:duration-100 hover:scale-102 w-24 rounded-sm p-1"
+                                >
+                                    change
+                                </button>
+
+                            </Link>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         </div >
     )
 }

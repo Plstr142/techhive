@@ -1,93 +1,104 @@
-import React from 'react';
-import usetechhiveStore from '../store/techhive-store';
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import usetechhiveStore from "../store/techhive-store";
+import { ChevronDown } from "lucide-react";
 
 const MainNav = () => {
     const carts = usetechhiveStore((state) => state.carts);
+    const user = usetechhiveStore(state => state.user);
+    const logout = usetechhiveStore((state) => state.logout);
+    // console.log(Boolean(user))
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleDropdown = () => setIsOpen(!isOpen);
+
     console.log(carts.length);
-
     return (
-        <div className="relative">
-            <nav className="relative h-16 overflow-hidden">
-                {/* Animated Background */}
-                <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-black to-gray-900">
-                    {/* Floating Particles */}
-                    {[...Array(30)].map((_, i) => (
-                        <div
-                            key={i}
-                            className={`absolute w-1 h-1 rounded-full animate-pulse ${i % 4 === 0 ? 'bg-gray-400/30' :
-                                i % 4 === 1 ? 'bg-slate-400/30' :
-                                    i % 4 === 2 ? 'bg-zinc-400/30' :
-                                        'bg-stone-400/30'
-                                }`}
-                            style={{
-                                left: `${Math.random() * 100}%`,
-                                top: `${Math.random() * 100}%`,
-                                animationDelay: `${Math.random() * 3}s`,
-                                animationDuration: `${2 + Math.random() * 2}s`
-                            }}
-                        />
-                    ))}
-                </div>
+        <nav className="bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white shadow-md">
+            <div className="max-w-7xl mx-auto px-4">
+                <div className="flex justify-between h-16 items-center relative">
+                    <div className="flex items-center gap-8">
+                        <Link to="/" className="text-2xl font-extrabold tracking-wide hover:scale-105 transition-transform duration-300">
+                            ⚡TECHHIVE
+                        </Link>
 
-                {/* Glass Morphism Overlay */}
-                <div className="absolute inset-0 backdrop-blur-sm bg-black/60 border-b border-gray-600/30" />
+                        {["Home", "Shop", "Cart"].map((label) => {
+                            const to = label.toLowerCase() === "home" ? "/" : `/${label.toLowerCase()}`
+                            return (
+                                <NavLink
+                                    key={label}
+                                    to={to}
+                                    className={({ isActive }) =>
+                                        `relative group px-3 py-2 text-sm font-medium transition-all duration-200 ${isActive ? "text-white" : "text-gray-300"}`
+                                    }
+                                >
+                                    {label}
+                                    <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-gray-200 to-gray-300 group-hover:w-full transition-all duration-300 ease-out" />
+                                    {label === "Cart" && carts.length > 0 && (
+                                        <span className="absolute -top-2 -right-3 bg-gray-600 text-white text-xs px-1.5 rounded-full shadow-md animate-bounce">
+                                            {carts.length}
+                                        </span>
+                                    )}
+                                </NavLink>
+                            );
+                        })}
+                    </div>
 
-                {/* Navigation Content */}
-                <div className="relative z-10 mx-auto px-4 h-full">
-                    <div className="flex justify-between h-16">
-                        <div className="flex items-center gap-6">
-                            <Link
-                                to="/"
-                                className="text-2xl font-bold text-gray-200 hover:text-white transition-all duration-300 hover:scale-110 hover:drop-shadow-lg"
+                    {user ? (
+                        <div className="relative">
+                            <button
+                                onClick={toggleDropdown}
+                                className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-white/10 transition-colors duration-300"
                             >
-                                Logo
-                            </Link>
-                            <Link
-                                to="/"
-                                className="text-gray-300/80 hover:text-gray-100 transition-all duration-300 hover:scale-105 relative group"
-                            >
-                                Home
-                                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-400 transition-all duration-300 group-hover:w-full" />
-                            </Link>
-                            <Link
-                                to="/shop"
-                                className="text-gray-300/80 hover:text-gray-100 transition-all duration-300 hover:scale-105 relative group"
-                            >
-                                Shop
-                                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-400 transition-all duration-300 group-hover:w-full" />
-                            </Link>
-                            <Link
-                                to="/cart"
-                                className="text-gray-300/80 hover:text-gray-100 transition-all duration-300 hover:scale-105 relative group py-4"
-                            >
-                                Cart
-                                {carts.length > 0 && (
-                                    <span className="absolute top-0 bg-white rounded-full px-2 text-black">
-                                        {carts.length}
-                                    </span>
-                                )}
-                            </Link>
+                                <img
+                                    className="w-9 h-9 rounded-full border border-white/20"
+                                    src="https://cdn.iconscout.com/icon/free/png-512/free-avatar-370-456322.png?f=webp&w=256"
+                                    alt="avatar"
+                                />
+                                <ChevronDown className="text-white w-4 h-4" />
+                            </button>
+
+                            {/* Dropdown */}
+                            {isOpen && (
+                                <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded-md shadow-lg py-2 z-50 animate-fadeIn">
+                                    <Link
+                                        to="/user/history"
+                                        className="block px-4 py-2 hover:bg-gray-100 transition"
+                                        onClick={() => setIsOpen(false)}
+                                    >
+                                        History
+                                    </Link>
+                                    <button
+                                        onClick={() => {
+                                            logout();
+                                        }}
+                                        className="block w-full text-left px-4 py-2 hover:bg-gray-100 transition"
+                                    >
+                                        Logout
+                                    </button>
+                                </div>
+                            )}
                         </div>
-
+                    ) : (
                         <div className="flex items-center gap-4">
-                            <a
-                                href="/register"
-                                className="px-4 py-2 text-gray-300/80 hover:text-gray-100 border border-gray-500/40 rounded-lg hover:bg-gray-700/30 transition-all duration-300 hover:scale-105 backdrop-blur-sm hover:border-gray-400/60"
+                            <NavLink
+                                to="/register"
+                                className="text-sm px-4 py-2 rounded-md bg-gray-600 hover:bg-black hover:text-white hover:brightness-110 transition-all duration-300 shadow-sm"
                             >
                                 Register
-                            </a>
-                            <a
-                                href="/login"
-                                className="px-4 py-2 bg-gradient-to-r from-gray-700 to-gray-800 text-white rounded-lg hover:from-gray-600 hover:to-gray-700 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-black/50"
+                            </NavLink>
+                            <NavLink
+                                to="/login"
+                                className="text-sm px-4 py-2 rounded-md bg-white text-black hover:bg-gray-600 hover:text-black hover:brightness-110 transition-all duration-300 shadow-md"
                             >
                                 Login
-                            </a>
+                            </NavLink>
                         </div>
-                    </div>
+                    )}
                 </div>
-            </nav>
-        </div>
+            </div>
+        </nav>
     );
 };
 
