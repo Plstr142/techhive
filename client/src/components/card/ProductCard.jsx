@@ -30,7 +30,7 @@ const ProductCard = ({ item }) => {
                 </div>
 
                 <div className="py-2">
-                    <p className="text-xl">{item.title}</p>
+                    <p className="text-xl truncate">{item.title}</p>
                     <p className="text-md text-gray-500">{item.description}</p>
                 </div>
 
