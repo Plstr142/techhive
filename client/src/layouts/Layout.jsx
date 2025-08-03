@@ -3,7 +3,7 @@ import MainNav from "../components/MainNav"
 
 const Layout = () => {
     return (
-        <div>
+        <div className="overflow-x-hidden">
             <MainNav />
 
             <main className="h-full">

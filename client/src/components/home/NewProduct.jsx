@@ -4,7 +4,7 @@ import ProductCard from "../card/ProductCard";
 import SwiperShowProduct from "../../utils/SwiperShowProduct";
 import { SwiperSlide } from "swiper/react";
 
-const BestSeller = () => {
+const NewProduct = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
@@ -13,7 +13,7 @@ const BestSeller = () => {
     }, []);
 
     const loadData = () => {
-        listProductBy("sold", "desc", 12)
+        listProductBy("updatedAt", "desc", 12)
             .then((res) => {
                 setData(res.data);
             })
@@ -25,7 +25,7 @@ const BestSeller = () => {
     console.log(data);
 
     return (
-        <div className="p-11 justify-center">
+        <div className="p-11">
             <SwiperShowProduct>
                 {data?.map((item, index) => (
                     <SwiperSlide>
@@ -37,4 +37,4 @@ const BestSeller = () => {
     );
 };
 
-export default BestSeller;
+export default NewProduct;
