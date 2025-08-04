@@ -1,36 +1,46 @@
 import React, { useState } from "react"
 import axios from "axios"
 import { toast } from 'react-toastify';
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import zxcvbn from "zxcvbn"
+import { data } from "react-router-dom";
+
+const registerSchema = z
+    .object({
+        email: z.string().email({ message: "Invalid email!!!" }),
+        password: z.string().min(8, { message: "Password must be than 8 characters" }),
+        confirmPassword: z.string()
+    })
+    .refine((data) => data.password === data.confirmPassword, { message: "Password is not match", path: ["confirmPassword"] })
 
 const Register = () => {
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm({
+        resolver: zodResolver(registerSchema),
+    })
+
     const [form, setForm] = useState({
         email: "",
         password: "",
         confirmPassword: ""
     });
 
-    const handleOnChange = (e) => {
-        // console.log(e.target.name, e.target.value)
-
-        // Call the operator's email, password, and confirm password to keep the old data intact and set key , value
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value
-        })
-    }
-
-    const handleSubmit = async (e) => {
-        // don't refresh
-        e.preventDefault()
-        // Check the form password and confirm the password before sending it to the server 
-        if (form.password !== form.confirmPassword) {
-            return alert("Confirm password isn't match")
+    const onSubmit = async (data) => {
+        const passwordScore = zxcvbn(data.password).score
+        if (passwordScore < 3) {
+            toast.warning("Password isn't Strong!!!!!")
+            return
         }
-
-        console.log(form)
+        console.log("password is correct")
         // Send to backend
         try {
-            const res = await axios.post("/api/register", form)
+            const res = await axios.post("/api/register", data)
 
             console.log(res.data)
             toast.success(res.data)
@@ -48,47 +58,32 @@ const Register = () => {
                     Sign up account
                 </h2>
 
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                     <div>
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                             Email
                         </label>
-                        <input
-                            id="email"
-                            name="email"
-                            type="email"
-                            onChange={handleOnChange}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:black focus:border-transparent transition"
-                            required
-                        />
+
+                        <input {...register("email")} className="border" />
+                        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
                     </div>
 
                     <div>
                         <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                             Password
                         </label>
-                        <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            onChange={handleOnChange}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:black focus:border-transparent transition"
-                            required
-                        />
+
+                        <input {...register("password")} className="border" />
+                        {errors.password && <p className="text-red-500">{errors.password.message}</p>}
                     </div>
 
                     <div>
                         <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
                             Confirm Password
                         </label>
-                        <input
-                            id="confirmPassword"
-                            name="confirmPassword"
-                            type="password"
-                            onChange={handleOnChange}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:black focus:border-transparent transition"
-                            required
-                        />
+
+                        <input {...register("confirmPassword")} className="border" />
+                        {errors.confirmPassword && <p className="text-red-500">{errors.confirmPassword.message}</p>}
                     </div>
 
                     <button
