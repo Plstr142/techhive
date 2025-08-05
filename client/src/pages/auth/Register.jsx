@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import zxcvbn from "zxcvbn"
-import { data } from "react-router-dom";
 
 const registerSchema = z
     .object({
@@ -63,9 +62,9 @@ const Register = () => {
     return (
         <div className="min-h-screen bg-gray-600 flex items-center justify-center">
             <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
-                <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">
+                <h1 className="text-2xl font-bold mb-6 text-gray-800 text-center my-4">
                     Sign up account
-                </h2>
+                </h1>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                     <div className="space-y-4">
