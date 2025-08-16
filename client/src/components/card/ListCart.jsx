@@ -3,7 +3,7 @@ import usetechhiveStore from '../../store/techhive-store';
 import { Link, useNavigate } from 'react-router-dom';
 import { createUserCart } from '../../api/user';
 import { toast } from "react-toastify"
-import { numberFormat } from "../../utils/Number";
+import { numberFormat } from "../../utils/number";
 
 const ListCart = () => {
     const cart = usetechhiveStore((state) => state.carts);

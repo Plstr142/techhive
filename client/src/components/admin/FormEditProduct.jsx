@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import usetechhiveStore from "../../store/techhive-store"
 import { readProduct, listProduct, updateProduct } from "../../api/product";
 import { toast } from 'react-toastify';
-import Uploadfile from "./UploadFile";
+import Uploadfile from "./Uploadfile";
 import { useParams, useNavigate } from "react-router-dom";
 
 // obj initialstate

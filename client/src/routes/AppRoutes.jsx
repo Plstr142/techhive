@@ -14,12 +14,15 @@ import Dashboard from "../pages/admin/Dashboard"
 import Category from "../pages/admin/Category"
 import Product from "../pages/admin/Product"
 import Manage from "../pages/admin/Manage"
-import HomeUser from "../pages/user/HomeUser"
 import ProtectRouteUser from "./ProtectRouteUser"
 import ProtectRouteAdmin from "./ProtectRouteAdmin"
 import EditProduct from "../pages/admin/EditProduct"
 import Payment from "../pages/user/Payment"
 import ManageOrders from "../pages/admin/ManageOrders"
+import ProfileUser from "../pages/user/ProfileUser"
+// import Profile from "../pages/admin/Profile"
+import EditProfile from "../pages/admin/EditProfile"
+import HomeUser from "../pages/user/HomeUser"
 
 const router = createBrowserRouter([
     {
@@ -54,8 +57,10 @@ const router = createBrowserRouter([
         element: <ProtectRouteUser element={<LayoutUser />} />,
         children: [
             { index: true, element: <HomeUser /> },
-            { path: "payment", element: <Payment /> },
-            { path: "history", element: <History /> },
+            { path: ("profile"), element: <ProfileUser /> },
+            { path: ("profile/:userId"), element: <EditProfile /> },
+            { path: ("payment"), element: <Payment /> },
+            { path: ("history"), element: <History /> },
         ]
     }
 ])

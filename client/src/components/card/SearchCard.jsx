@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import usetechhiveStore from "../../store/techhive-store";
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import { numberFormat } from "../../utils/Number";
+import { numberFormat } from "../../utils/number";
 
 const SearchCard = () => {
     const getProduct = usetechhiveStore((state) => state.getProduct);

@@ -192,7 +192,7 @@ const MainNav = () => {
                 />
             )}
 
-            <style jsx>{`
+            <style>{`
                 /* Mobile S: 320px */
                 @media (max-width: 320px) {
                     .tablet\\:hidden { display: block; }

@@ -1,7 +1,7 @@
 import { Trash2, Minus, Plus } from 'lucide-react';
 import usetechhiveStore from '../../store/techhive-store';
 import { Link } from "react-router-dom";
-import { numberFormat } from "../../utils/Number";
+import { numberFormat } from "../../utils/number";
 
 const CartCard = () => {
     // Javascript

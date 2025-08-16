@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getOrders } from "../../api/user"
 import usetechhiveStore from "../../store/techhive-store"
 import { dateFormat } from "../../utils/dateformat";
-import { numberFormat } from "../../utils/Number";
+import { numberFormat } from "../../utils/number";
 
 const HistoryCard = () => {
     const token = usetechhiveStore((state) => state.token);

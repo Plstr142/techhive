@@ -1,6 +1,6 @@
 import { ShoppingCart } from 'lucide-react';
 import usetechhiveStore from '../../store/techhive-store';
-import { numberFormat } from "../../utils/Number";
+import { numberFormat } from "../../utils/number";
 import { motion } from "framer-motion"
 
 const ProductCard = ({ item }) => {

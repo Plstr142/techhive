@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { getOrdersAdmin, changeOrderStatus } from "../../api/admin"
 import usetechhiveStore from "../../store/techhive-store"
 import { toast } from "react-toastify"
-import { numberFormat } from "../../utils/Number"
+import { numberFormat } from "../../utils/number"
 // import moment from "moment"
 import { dateFormat } from "../../utils/dateformat"
 // th

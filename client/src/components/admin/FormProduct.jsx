@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import usetechhiveStore from "../../store/techhive-store"
 import { createProduct, deleteProduct } from "../../api/product";
 import { toast } from 'react-toastify';
-import Uploadfile from "./UploadFile";
+import Uploadfile from "./Uploadfile";
 import { Link } from "react-router-dom";
-import { numberFormat } from "../../utils/Number";
+import { numberFormat } from "../../utils/number";
 // import moment from "moment";
 import { dateFormat } from "../../utils/dateformat";
 

@@ -9,6 +9,7 @@ import _ from "lodash"
 const techhiveStore = (set, get) => ({
     user: null,
     token: null,
+    profilename: null,
     categories: [],
     products: [],
     carts: [],

@@ -3,7 +3,7 @@ import usetechhiveStore from "../../store/techhive-store";
 import { listUserCart, saveAddress } from "../../api/user";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { numberFormat } from "../../utils/Number";
+import { numberFormat } from "../../utils/number";
 
 const SummaryCard = () => {
     const token = usetechhiveStore((state) => state.token);
