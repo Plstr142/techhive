@@ -6,7 +6,7 @@ import axios from "axios";
 // }
 
 export const createProfile = async (token, form) => {
-    return await axios.get("/api/profile/" + form, {
+    return await axios.post("/api/profile/", form, {
         headers: {
             Authorization: `Bearer ${token}`,
         }
@@ -21,7 +21,7 @@ export const updateProfile = async (token, id, form) => {
     })
 }
 
-export const listProfile = async (count = 2) => {
+export const listProfile = async (count = 1) => {
     return await axios.get("/api/profiles/" + count)
 }
 

@@ -1,6 +1,8 @@
-import FormEditProfile from "../../components/admin/FormEditProfile"
+import React from "react";
+import FormEditProfile from "../../components/admin/FormEditProfile";
 
 const ProfileUser = () => {
+
     return (
         <div>
             <FormEditProfile />

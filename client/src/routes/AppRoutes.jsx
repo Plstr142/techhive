@@ -20,9 +20,8 @@ import EditProduct from "../pages/admin/EditProduct"
 import Payment from "../pages/user/Payment"
 import ManageOrders from "../pages/admin/ManageOrders"
 import ProfileUser from "../pages/user/ProfileUser"
-// import Profile from "../pages/admin/Profile"
-import EditProfile from "../pages/admin/EditProfile"
 import HomeUser from "../pages/user/HomeUser"
+import Profile from "../pages/admin/Profile"
 
 const router = createBrowserRouter([
     {
@@ -57,8 +56,8 @@ const router = createBrowserRouter([
         element: <ProtectRouteUser element={<LayoutUser />} />,
         children: [
             { index: true, element: <HomeUser /> },
-            { path: ("profile"), element: <ProfileUser /> },
-            { path: ("profile/:userId"), element: <EditProfile /> },
+            { path: ("profile"), element: <Profile /> },
+            { path: ("profile/:id"), element: <ProfileUser /> },
             { path: ("payment"), element: <Payment /> },
             { path: ("history"), element: <History /> },
         ]

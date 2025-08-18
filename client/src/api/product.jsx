@@ -12,7 +12,6 @@ export const listProduct = async (count = 100) => {
     return await axios.get("/api/products/" + count)
 }
 
-
 export const readProduct = async (token, id) => {
     return await axios.get("/api/product/" + id, {
         headers: {

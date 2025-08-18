@@ -1,8 +1,8 @@
-// import FormProduct from "../../components/admin/FormProfile"
+import FormProfile from "../../components/admin/FormProfile"
 
-// const Profile = () => {
-//     return (
-//         <div><FormProduct /></div>
-//     )
-// }
-// export default Profile
+const Profile = () => {
+    return (
+        <div><FormProfile /></div>
+    )
+}
+export default Profile

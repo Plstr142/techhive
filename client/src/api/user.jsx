@@ -40,23 +40,23 @@ export const getOrders = async (token) => {
     })
 }
 
-export const listProfile = async (count = 2) => {
-    return await axios.get("/api/profiles/" + count)
-}
+// export const listProfile = async (count = 2) => {
+//     return await axios.get("/api/profiles/" + count)
+// }
 
-export const createProfile = async (token, data) => {
-    return await axios.post("/api/createprofile", data, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        }
-    })
-}
+// export const createProfile = async (token, data) => {
+//     return await axios.post("/api/createprofile", data, {
+//         headers: {
+//             Authorization: `Bearer ${token}`,
+//         }
+//     })
+// }
 
-export const getProfile = async (token, userId) => {
-    return await axios.get(`/api/profile/${userId}`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        }
-    });
-};
+// export const getProfile = async (token, userId) => {
+//     return await axios.get(`/api/profile/${userId}`, {
+//         headers: {
+//             Authorization: `Bearer ${token}`,
+//         }
+//     });
+// };
 
