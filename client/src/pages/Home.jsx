@@ -7,10 +7,10 @@ const Home = () => {
         <div>
             <ContentCarousel />
 
-            <p className="text-2xl text-center my-4">Best seller</p>
+            <p className="text-2xl text-center my-4 text-white">Best seller</p>
             <BestSeller />
 
-            <p className="text-2xl text-center my-4">New Product</p>
+            <p className="text-2xl text-center my-4 text-white">New Product</p>
             <NewProduct />
         </div>
     )

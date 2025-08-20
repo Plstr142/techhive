@@ -1,6 +1,4 @@
-import axios from "axios";
-
-
+import axios from "axios"
 // export const listProfile = async (count = 100) => {
 //     return await axios.get("/api/profile/" + count)
 // }
@@ -21,10 +19,11 @@ export const updateProfile = async (token, id, form) => {
     })
 }
 
-export const listProfile = async (count = 1) => {
-    return await axios.get("/api/profiles/" + count)
+export const listProfile = async (token, count = 1) => {
+    return await axios.get("/api/profiles/" + count, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
 }
-
 
 export const readProfile = async (token, id) => {
     return await axios.get("/api/profile/" + id, {
@@ -63,6 +62,3 @@ export const removeFiles = async (token, public_id) => {
         }
     })
 }
-
-
-

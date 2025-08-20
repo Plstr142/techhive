@@ -25,7 +25,7 @@ const NewProduct = () => {
     console.log(data);
 
     return (
-        <div className="p-11">
+        <div className="p-11 justify-center bg-gray-200">
             <SwiperShowProduct>
                 {data?.map((item, index) => (
                     <SwiperSlide>

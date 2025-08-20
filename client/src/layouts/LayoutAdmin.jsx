@@ -10,9 +10,7 @@ const LayoutAdmin = () => {
 
             <div className="flex-1 flex flex-col">
 
-                <HeaderAdmin />
-
-                <main className="flex-1 p-6 bg-gray-100 overflow-y-auto">
+                <main className="flex-1 p-4 bg-gray-100 overflow-y-auto">
                     <Outlet />
                 </main>
 

@@ -4,7 +4,7 @@ import { persist, createJSONStorage } from "zustand/middleware"
 import { listCategory } from "../api/Category"
 import { listProduct, searchFilters } from "../api/product"
 import _ from "lodash"
-import { listProfile, readProfile } from "../api/Profile"
+import { listProfile } from "../api/Profile"
 
 // return as obj
 const techhiveStore = (set, get) => ({
@@ -95,16 +95,15 @@ const techhiveStore = (set, get) => ({
         }
     },
     clearCart: () => set({ carts: [] }),
-    getProfile: async (count) => {
+    getProfile: async (count = 1) => {
         try {
-            const res = await listProfile(count);
-            set({
-                profile: res.data
-            })
+            const token = get().token
+            const res = await listProfile(token, count);
+            set({ profile: res.data })
         } catch (error) {
-            console.log(error)
+            console.log("getProfile error", error)
         }
-    }
+    },
 })
 
 const usePersist = {

@@ -33,12 +33,11 @@ const FormProfile = () => {
     });
 
     useEffect(() => {
-        if (user?.id) {
+        if (user?.id && token) {
             setForm(prev => ({ ...prev, userId: user.id }));
         }
         getProfile();
-    }, [user])
-
+    }, [user, token])
 
     const handleOnChange = (e) => {
         console.log(e.target.name, e.target.value)
@@ -72,65 +71,84 @@ const FormProfile = () => {
     }
 
     return (
-        <div className="container mx-auto p-4 bg-white rounded-sm shadow-md">
-            <form className="flex flex-col gap-2" onSubmit={handleOnSubmit}>
-                <p className="text-xl">Add profile data</p>
-                <div className="flex flex-row gap-2">
-                    <input
-                        className="border rounded-sm"
-                        value={form.username}
-                        onChange={handleOnChange}
-                        placeholder="Username"
-                        name="username"
-                    />
-                    <input
-                        className="border rounded-sm"
-                        value={form.bio}
-                        onChange={handleOnChange}
-                        placeholder="Bio"
-                        name="bio"
-                    />
-                </div>
+        <div className="min-h-screen w-full flex items-center justify-center p-4 bg-black">
+            <div className="w-full max-w-6xl mx-auto bg-white rounded-lg shadow-2xl overflow-hidden border-2 border-gray-800">
+                <form className="p-6" onSubmit={handleOnSubmit}>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-center mb-8 text-black">
+                        Your Profile
+                    </h1>
 
-                <hr />
-
-                {/* Upload file */}
-                {/* <Uploadfile form={form} setForm={setForm} /> */}
-
-                <button className="bg-black text-white rounded-sm p-2 mb-9 w-30 cursor-pointer hover:scale-104 hover:-translate-y-1 hover:duration-200">Add profile</button>
-
-                <table className="table w-full border-transparent">
-                    <thead className="h-10">
-                        <tr className="bg-gray-400">
-                            <th scope="col">Profile name</th>
-                            <th scope="col">Bio</th>
-                            <th scope="col">Manage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {profile.map((item, index) => (
-                            <tr key={index} className="border-1 border-gray-100 bg-gray-100 items-center">
-                                <td>{item.username}</td>
-                                <td>{item.bio}</td>
-                                <td className="text-center p-2 h-32 w-24">
-                                    <div className="flex flex-col items-center justify-center gap-1 h-full">
-                                        <p className="bg-gray-500 hover:text-white rounded-sm py-1 px-4 shadow-sm w-full cursor-pointer hover:scale-104 hover:-translate-y-1 hover:duration-200">
-                                            <Link to={'/admin/profile/' + item.id}>Edit</Link>
-                                        </p>
-                                        <p
-                                            className="bg-black hover:bg-red-500 hover:text-black text-white rounded-sm py-1 px-4 shadow-sm cursor-pointer hover:scale-104 hover:duration-200"
-                                            onClick={() => handleDelete(item.id)}
+                    {/* Table Container with horizontal scroll */}
+                    <div className="overflow-x-auto">
+                        <table className="w-full min-w-[600px] border-collapse border-2 border-black rounded-lg overflow-hidden">
+                            <thead>
+                                <tr className="bg-black text-white">
+                                    <th className="border border-gray-600 px-4 py-3 text-center font-semibold">
+                                        Profile Name
+                                    </th>
+                                    <th className="border border-gray-600 px-4 py-3 text-center font-semibold">
+                                        Bio
+                                    </th>
+                                    <th className="border border-gray-600 px-4 py-3 text-center font-semibold">
+                                        Manage
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {profile && profile.length > 0 ? (
+                                    profile.map((item, index) => (
+                                        <tr
+                                            key={index}
+                                            className={`${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'} hover:bg-gray-200 transition-colors`}
                                         >
-                                            Delete
-                                        </p>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </form>
+                                            <td className="border border-gray-600 px-4 py-4 text-center">
+                                                <div className="font-medium text-black break-words">
+                                                    {item.username || 'N/A'}
+                                                </div>
+                                            </td>
+                                            <td className="border border-gray-600 px-4 py-4">
+                                                <div className="max-w-xs break-words whitespace-normal text-left text-black leading-relaxed">
+                                                    {item.bio || 'No bio available'}
+                                                </div>
+                                            </td>
+                                            <td className="border border-gray-600 px-4 py-4">
+                                                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 min-h-[60px]">
+                                                    <Link
+                                                        to={'/user/profile/' + item.id}
+                                                        className="w-full sm:w-auto bg-gray-500 text-black hover:text-white rounded-sm py-2 px-4 text-sm font-medium text-center transition-all duration-200 hover:scale-105 hover:-translate-y-0.5 shadow-lg hover:shadow-xl"
+                                                    >
+                                                        Edit
+                                                    </Link>
+                                                    <button
+                                                        type="button"
+                                                        className="w-full sm:w-auto bg-black hover:bg-red-500 text-white hover:text-black rounded-sm py-2 px-4 text-sm font-medium transition-all duration-200 hover:scale-105 hover:-translate-y-0.5 shadow-lg hover:shadow-xl"
+                                                        onClick={() => handleDelete(item.id)}
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="3" className="border border-gray-600 px-4 py-8 text-center text-gray-600">
+                                            No profiles found
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {/* Mobile-friendly message */}
+                    <div className="sm:hidden mt-4 text-center text-sm text-gray-600">
+                        <p>Swipe left/right to see all columns</p>
+                    </div>
+                </form>
+            </div>
         </div>
     )
 }
+
 export default FormProfile

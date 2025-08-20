@@ -3,10 +3,13 @@ import usetechhiveStore from "../store/techhive-store";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { ChevronDown, Menu, X } from "lucide-react";
+import React, { useEffect } from "react";
 
 const MainNav = () => {
     const carts = usetechhiveStore((state) => state.carts);
     const user = usetechhiveStore(state => state.user);
+    const profile = usetechhiveStore(state => state.profile);
+    const getProfile = usetechhiveStore((state) => state.getProfile);
     const logout = usetechhiveStore((state) => state.logout);
 
     const [isOpen, setIsOpen] = useState(false);
@@ -25,6 +28,12 @@ const MainNav = () => {
         logout();
         setIsOpen(false);
     };
+
+    useEffect(() => {
+        if (user?.id) {
+            getProfile(1);
+        }
+    }, [user]);
 
     return (
         <nav className="bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white shadow-md relative">
@@ -56,7 +65,7 @@ const MainNav = () => {
                                     {label}
                                     <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-gray-200 to-gray-300 group-hover:w-full transition-all duration-300 ease-out" />
                                     {label === "Cart" && carts.length > 0 && (
-                                        <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs px-1.5 rounded-full shadow-md animate-bounce">
+                                        <span className="absolute -top-0 -right-3 bg-white text-black text-xs px-1.5 rounded-full shadow-md animate-pulse">
                                             {carts.length}
                                         </span>
                                     )}
@@ -78,6 +87,9 @@ const MainNav = () => {
                                         src="https://cdn.iconscout.com/icon/free/png-512/free-avatar-370-456322.png?f=webp&w=256"
                                         alt="avatar"
                                     />
+                                    <span className="hidden tablet:block text-white font-medium">
+                                        {profile[0]?.username || "User"}
+                                    </span>
                                     <ChevronDown className="text-white w-4 h-4 hidden tablet:block" />
                                 </button>
 
